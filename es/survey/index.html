@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estimación de inspección pre-compra | Premium Yachts Spain</title>
+  <meta name="description" content="Calcule una tarifa indicativa de inspección pre-compra según la eslora, tipo de embarcación y alcance seleccionado con Premium Yachts Spain." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: 'Playfair Display', Georgia, serif; background: #f4f8fb; color: #000; font-size: 14px; }
+    .pys-page { min-height: 100vh; padding: 28px 16px; display: flex; align-items: center; justify-content: center; }
+    .pys-wrapper { width: 100%; max-width: 860px; }
+    .pys-top { text-align: center; margin-bottom: 20px; position: relative; }
+    .pys-brand { color: #06417c; font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .pys-lang-switch { display: flex; justify-content: center; gap: 8px; margin-bottom: 14px; font-size: 13px; }
+    .pys-lang-switch a, .pys-lang-switch span { padding: 7px 10px; border: 1px solid #d9e1e8; border-radius: 999px; text-decoration: none; color: #06417c; font-weight: 600; background: #fff; }
+    .pys-lang-switch span { background: #06417c; color: #fff; border-color: #06417c; }
+    .pys-top h1 { margin: 0 0 10px; color: #06417c; font-size: 36px; line-height: 1.15; font-weight: 600; }
+    .pys-top p { max-width: 700px; margin: 0 auto; line-height: 1.6; font-size: 15px; }
+    .pys-card { width: 100%; margin: 0 auto; padding: 30px; border: 1px solid #d9e1e8; border-radius: 22px; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.07); font-size: 14px; color: #000; }
+    .pys-card h2, .pys-card h3, .pys-card label { color: #06417c; }
+    .pys-card h2 { margin: 0 0 10px; font-size: 28px; line-height: 1.2; font-weight: 600; }
+    .pys-card h3 { margin: 0 0 12px; font-size: 26px; line-height: 1.2; font-weight: 600; }
+    .pys-card p { margin: 8px 0; font-size: 14px; line-height: 1.6; color: #000; }
+    .pys-card label { display: block; margin-top: 16px; font-size: 14px; font-weight: 600; }
+    .pys-card input, .pys-card select { width: 100%; padding: 12px; margin-top: 6px; border: 1px solid #ccd6dd; border-radius: 10px; font-size: 14px; font-family: 'Playfair Display', Georgia, serif; color: #000; background: #fff; }
+    .pys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    .pys-card button, .pys-card a.pys-button { width: 100%; margin-top: 22px; padding: 14px; background: #06417c; color: #fff; border: none; border-radius: 10px; font-size: 14px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+    .pys-card button:hover, .pys-card a.pys-button:hover { opacity: .92; }
+    #pys-result-view { display: none; }
+    .pys-big-result { font-size: 36px; line-height: 1.15; font-weight: 700; margin: 4px 0 18px; color: #06417c; }
+    .pys-medium-result { font-size: 26px; line-height: 1.2; font-weight: 700; margin: 4px 0 18px; color: #06417c; }
+    .pys-box { margin-top: 16px; padding: 16px; background: #f4f8fb; border-radius: 14px; border: 1px solid #d9e1e8; font-size: 14px; line-height: 1.6; color: #000; }
+    .pys-note { margin-top: 16px; padding: 16px; background: #fff; border: 1px solid #d9e1e8; border-radius: 14px; font-size: 14px; line-height: 1.6; }
+    .pys-secondary-button { background: #fff !important; color: #06417c !important; border: 1px solid #06417c !important; margin-top: 12px !important; }
+    .pys-footer-link { text-align: center; margin-top: 22px; }
+    .pys-footer-link a { color: #06417c; text-decoration: none; font-weight: 600; }
+    @media (max-width: 760px) {
+      .pys-page { align-items: flex-start; padding: 18px 12px; }
+      .pys-top h1 { font-size: 28px; }
+      .pys-top p { font-size: 14px; }
+      .pys-card { padding: 20px; border-radius: 18px; }
+      .pys-card h2 { font-size: 24px; }
+      .pys-card h3 { font-size: 22px; }
+      .pys-grid { grid-template-columns: 1fr; gap: 0; }
+      .pys-big-result { font-size: 30px; }
+      .pys-medium-result { font-size: 23px; }
+    }
+
+    .pys-checkbox-area { margin-top: 16px; padding: 16px; border: 1px solid #d9e1e8; border-radius: 14px; background: #f4f8fb; }
+    .pys-checkbox-area-title { color: #06417c; font-weight: 600; margin-bottom: 10px; }
+    .pys-checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 10px; font-size: 14px; line-height: 1.45; color: #000; }
+    .pys-checkbox-row input { width: auto !important; margin-top: 3px !important; flex: 0 0 auto; }
+    </style>
+</head>
+<body>
+  <main class="pys-page">
+    <div class="pys-wrapper">
+      <header class="pys-top">
+        <div class="pys-lang-switch"><a href="/survey/">EN</a><span>ES</span></div>
+        <div class="pys-brand">Premium Yachts Spain</div>
+        <h1>Estimación de inspección pre-compra</h1>
+        <p>Calcule una tarifa profesional orientativa según la eslora, el tipo de embarcación y el alcance de inspección. El presupuesto final se confirma individualmente tras revisar el yate.</p>
+      </header>
+      <section id="pys-survey-calculator" class="pys-card">
+        <div id="pys-form-view">
+          <h2>Calcular estimación de inspección</h2>
+          <p>Introduzca la eslora total del yate y seleccione el alcance de inspección requerido.</p>
+          <div class="pys-grid">
+            <div><label for="pys-length">LOA / eslora, metros</label><input id="pys-length" type="number" min="5" max="40" step="0.1" placeholder="Example: 12.5"></div>
+            <div><label for="pys-type">Tipo de embarcación</label><select id="pys-type"><option value="sailing">Embarcación de vela</option><option value="motor">Embarcación a motor</option></select></div>
+          </div>
+          <div class="pys-grid">
+            <div><label for="pys-package">Paquete de inspección</label><select id="pys-package"><option value="base">Inspección base</option><option value="custom">Selección personalizada</option><option value="full">Paquete de inspección completa</option></select></div>
+            <div><label for="pys-hull">Inspección del casco</label><select id="pys-hull"><option value="water">Solo en agua</option><option value="out">Inspección con varada</option></select></div>
+          </div>
+          <div id="pys-custom-options" class="pys-checkbox-area">
+            <div class="pys-checkbox-area-title">Inspecciones adicionales</div>
+            <div class="pys-checkbox-row"><input id="pys-sea-trial" type="checkbox"><span>Prueba de mar</span></div>
+            <div class="pys-checkbox-row"><input id="pys-engine" type="checkbox"><span>Inspección de motor / motores</span></div>
+            <div class="pys-checkbox-row" id="pys-rig-row"><input id="pys-rig" type="checkbox"><span>Inspección de jarcia y velas</span></div>
+          </div>
+          <button type="button" id="pys-calculate">Calcular estimación</button>
+        </div>
+        <div id="pys-result-view">
+          <h3>Cálculo estimado de inspección</h3>
+          <p>Tarifa profesional estimada:</p>
+          <div id="pys-price" class="pys-big-result"></div>
+          <div id="pys-included" class="pys-box"></div>
+          <div class="pys-note">Los precios son solo informativos. El presupuesto final se calcula individualmente tras revisar el tipo de yate, eslora, antigüedad, material, sistemas, número de motores, acceso a la jarcia, ubicación y alcance requerido. Las tasas de varadero, marina, combustible, patrón/tripulación para prueba de mar, gastos de viaje, análisis de aceite, diagnósticos especializados, reparaciones e IVA no están incluidos salvo confirmación por escrito.</div>
+          <a class="pys-button" href="https://www.premiumyachts.es/contacts" target="_blank">Solicitar presupuesto exacto</a>
+          <button type="button" id="pys-new-calculation" class="pys-secondary-button">Nuevo cálculo</button>
+        </div>
+      </section>
+      <div class="pys-footer-link"><a href="https://www.premiumyachts.es" target="_blank">Volver a Premium Yachts Spain</a></div>
+    </div>
+  </main>
+  <script>
+    (function () {
+      var labels = {"base": "Inspección pre-compra base", "sea": "Prueba de mar", "engine": "Inspección de motor / motores", "hull": "Inspección con varada", "rig": "Inspección de jarcia y velas", "water": "Inspección solo en agua"};
+      function roundTo50(value) { return Math.round(value / 50) * 50; }
+      function formatEUR(value) { return "€" + value.toLocaleString("en-GB"); }
+      function baseSurveyPrice(length, vesselType) {
+        var price = 0;
+        if (length <= 7) price = 450;
+        else if (length <= 12) price = Math.max(550, length * 60);
+        else if (length <= 18) price = length * 70;
+        else if (length <= 24) price = length * 85;
+        else price = length * 105;
+        if (vesselType === "sailing") price = price * 1.05;
+        if (vesselType === "motor") price = price * 1.10;
+        return price;
+      }
+      function seaTrialPrice(length) { return Math.max(250, length * 22); }
+      function engineInspectionPrice(length, vesselType) { return vesselType === "motor" ? Math.max(300, length * 30) : Math.max(180, length * 16); }
+      function rigInspectionPrice(length) { return Math.max(350, length * 32); }
+      function hullOutInspectionPrice(length) { return Math.max(220, length * 22); }
+      function getSelectedScope() {
+        var length = parseFloat(document.getElementById("pys-length").value);
+        var vesselType = document.getElementById("pys-type").value;
+        var packageType = document.getElementById("pys-package").value;
+        var hullOption = document.getElementById("pys-hull").value;
+        if (!length || length < 5) { alert("Introduzca una LOA / eslora válida."); return null; }
+        if (length > 40) { alert("Para embarcaciones de más de 40 metros, solicite un presupuesto individual."); return null; }
+        var items = [], subtotal = 0;
+        subtotal += baseSurveyPrice(length, vesselType);
+        items.push(labels.base);
+        if (packageType === "full") {
+          subtotal += seaTrialPrice(length) + engineInspectionPrice(length, vesselType) + hullOutInspectionPrice(length);
+          items.push(labels.sea); items.push(labels.engine); items.push(labels.hull);
+          if (vesselType === "sailing") { subtotal += rigInspectionPrice(length); items.push(labels.rig); }
+          var discount = subtotal * 0.15;
+          return { price: roundTo50(subtotal - discount), items: items, discount: roundTo50(discount), packageType: "Paquete de inspección completa" };
+        }
+        if (hullOption === "out") { subtotal += hullOutInspectionPrice(length); items.push(labels.hull); }
+        else { items.push(labels.water); }
+        if (packageType === "custom") {
+          if (document.getElementById("pys-sea-trial").checked) { subtotal += seaTrialPrice(length); items.push(labels.sea); }
+          if (document.getElementById("pys-engine").checked) { subtotal += engineInspectionPrice(length, vesselType); items.push(labels.engine); }
+          if (vesselType === "sailing" && document.getElementById("pys-rig").checked) { subtotal += rigInspectionPrice(length); items.push(labels.rig); }
+        }
+        return { price: roundTo50(subtotal), items: items, discount: 0, packageType: packageType === "base" ? "Inspección base" : "Inspección personalizada" };
+      }
+      function updateFormVisibility() {
+        var vesselType = document.getElementById("pys-type").value;
+        var packageType = document.getElementById("pys-package").value;
+        var customOptions = document.getElementById("pys-custom-options");
+        var hullSelect = document.getElementById("pys-hull");
+        var rigRow = document.getElementById("pys-rig-row");
+        if (vesselType === "motor") { rigRow.style.display = "none"; document.getElementById("pys-rig").checked = false; } else { rigRow.style.display = "flex"; }
+        if (packageType === "full") { customOptions.style.display = "none"; hullSelect.value = "out"; hullSelect.disabled = true; }
+        else if (packageType === "base") { customOptions.style.display = "none"; hullSelect.disabled = false; }
+        else { customOptions.style.display = "block"; hullSelect.disabled = false; }
+      }
+      function showResult() { document.getElementById("pys-form-view").style.display = "none"; document.getElementById("pys-result-view").style.display = "block"; window.scrollTo({ top: 0, behavior: "smooth" }); }
+      function showForm() { document.getElementById("pys-result-view").style.display = "none"; document.getElementById("pys-form-view").style.display = "block"; window.scrollTo({ top: 0, behavior: "smooth" }); }
+      function resetCalculator() {
+        document.getElementById("pys-length").value = ""; document.getElementById("pys-type").value = "sailing"; document.getElementById("pys-package").value = "base"; document.getElementById("pys-hull").value = "water"; document.getElementById("pys-hull").disabled = false; document.getElementById("pys-sea-trial").checked = false; document.getElementById("pys-engine").checked = false; document.getElementById("pys-rig").checked = false; updateFormVisibility(); showForm();
+      }
+      function calculateSurvey() {
+        var result = getSelectedScope(); if (!result) return;
+        var includedHtml = "<strong style='color:#06417c;'>" + "Alcance seleccionado:" + "</strong><br>" + result.items.map(function (item) { return "• " + item; }).join("<br>");
+        if (result.discount > 0) includedHtml += "<br><br><strong style='color:#06417c;'>" + "Descuento de paquete completo incluido:" + "</strong><br>" + "El paquete de inspección completa incluye un descuento frente a contratar cada elemento por separado.";
+        document.getElementById("pys-price").innerHTML = formatEUR(result.price);
+        document.getElementById("pys-included").innerHTML = includedHtml;
+        showResult();
+      }
+      document.getElementById("pys-type").addEventListener("change", updateFormVisibility);
+      document.getElementById("pys-package").addEventListener("change", updateFormVisibility);
+      document.getElementById("pys-calculate").addEventListener("click", calculateSurvey);
+      document.getElementById("pys-new-calculation").addEventListener("click", resetCalculator);
+      updateFormVisibility();
+    })();
+  </script>
+</body>
+</html>

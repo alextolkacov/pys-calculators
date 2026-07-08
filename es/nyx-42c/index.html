@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Configurador de precio NYX 42C | Premium Yachts Spain</title>
+  <meta name="description" content="Configure un catamarán NYX 42C nuevo y descargue una estimación indicativa en PDF con Premium Yachts Spain." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', Georgia, serif;
+      background: #f4f8fb;
+      color: #000000;
+      font-size: 14px;
+    }
+
+    .pys-page {
+      min-height: 100vh;
+      padding: 28px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pys-wrapper {
+      width: 100%;
+      max-width: 920px;
+    }
+
+    .pys-top {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+
+    .pys-lang-switch {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    .pys-lang-switch a,
+    .pys-lang-switch span {
+      padding: 7px 10px;
+      border: 1px solid #d9e1e8;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #06417c;
+      font-weight: 600;
+      background: #ffffff;
+    }
+
+    .pys-lang-switch span {
+      background: #06417c;
+      color: #ffffff;
+      border-color: #06417c;
+    }
+
+    .pys-brand {
+      color: #06417c;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .pys-top h1 {
+      margin: 0 0 10px 0;
+      color: #06417c;
+      font-size: 36px;
+      line-height: 1.15;
+      font-weight: 600;
+    }
+
+    .pys-top p {
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .pys-page-footer-link {
+      text-align: center;
+      margin-top: 22px;
+    }
+
+    .pys-page-footer-link a {
+      color: #06417c;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 760px) {
+      .pys-page {
+        align-items: flex-start;
+        padding: 18px 12px;
+      }
+
+      .pys-top h1 { font-size: 28px; }
+      .pys-top p { font-size: 14px; }
+    }
+
+
+
+    #pys-nyx-calculator {
+      width: 100%;
+      max-width: 820px;
+      height: 780px;
+      min-height: 780px;
+      margin: 0 auto;
+      padding: 16px;
+      border: 1px solid #d9e1e8;
+      border-radius: 18px;
+      font-family: 'Playfair Display', Georgia, serif;
+      background: #ffffff;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+      font-size: 14px;
+      color: #000000;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #pys-nyx-calculator * { box-sizing: border-box; }
+
+    #pys-nyx-calculator h2,
+    #pys-nyx-calculator h3,
+    #pys-nyx-calculator label,
+    #pys-nyx-calculator .pys-blue { color: #06417c; }
+
+    #pys-nyx-calculator h2 {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.15;
+      font-weight: 600;
+    }
+
+    #pys-nyx-calculator h3 {
+      margin: 0 0 6px 0;
+      font-size: 21px;
+      line-height: 1.18;
+      font-weight: 600;
+    }
+
+    #pys-nyx-calculator p {
+      margin: 5px 0;
+      font-size: 14px;
+      line-height: 1.35;
+      color: #000000;
+    }
+
+    .pys-header {
+      flex: 0 0 auto;
+      padding-bottom: 9px;
+      border-bottom: 1px solid #e5edf3;
+    }
+
+    .pys-header-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .pys-step-pill {
+      padding: 6px 10px;
+      background: #f4f8fb;
+      color: #06417c;
+      border: 1px solid #d9e1e8;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .pys-progress {
+      height: 6px;
+      background: #edf3f8;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 9px;
+    }
+
+    .pys-progress-bar {
+      height: 100%;
+      background: #06417c;
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+
+    .pys-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pys-step-intro {
+      flex: 0 0 auto;
+      margin-bottom: 8px;
+    }
+
+    .pys-step-help {
+      font-size: 12px !important;
+      color: #000000;
+      opacity: 0.82;
+    }
+
+    .pys-card-list {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .pys-card {
+      border: 1px solid #d9e1e8;
+      border-radius: 12px;
+      padding: 11px;
+      background: #ffffff;
+      cursor: pointer;
+      min-width: 0;
+    }
+
+    .pys-card:hover { background: #f8fbfd; }
+    .pys-card.selected { border-color: #06417c; background: #f4f8fb; }
+
+    .pys-choice-grid {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .pys-choice-grid input { margin-top: 3px; }
+
+    .pys-title {
+      display: block;
+      font-size: 14px;
+      line-height: 1.32;
+      color: #000000;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .pys-title-clamped {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .pys-small {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      line-height: 1.25;
+      color: #000000;
+      opacity: 0.85;
+    }
+
+    .pys-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #06417c;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .pys-search-row {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .pys-search {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid #ccd6dd;
+      border-radius: 9px;
+      font-size: 14px;
+      font-family: 'Playfair Display', Georgia, serif;
+      color: #000000;
+      background: #ffffff;
+    }
+
+    .pys-mini-btn {
+      padding: 9px 10px !important;
+      font-size: 12px !important;
+      border-radius: 9px !important;
+      min-height: 38px;
+    }
+
+    .pys-option-card {
+      border: 1px solid #d9e1e8;
+      border-radius: 12px;
+      padding: 10px;
+      background: #ffffff;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .pys-option-card.selected {
+      border-color: #06417c;
+      background: #f4f8fb;
+    }
+
+    .pys-tag {
+      display: inline-block;
+      margin-bottom: 3px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #f4f8fb;
+      border: 1px solid #d9e1e8;
+      color: #06417c;
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .pys-option-pager {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .pys-page-label {
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.25;
+      color: #000000;
+    }
+
+    .pys-note {
+      padding: 11px;
+      background: #ffffff;
+      border: 1px solid #d9e1e8;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .pys-box {
+      padding: 11px;
+      background: #f4f8fb;
+      border: 1px solid #d9e1e8;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .pys-summary-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #e5edf3;
+      align-items: start;
+    }
+
+    .pys-summary-line:last-child { border-bottom: none; }
+    .pys-summary-line strong { color: #06417c; }
+
+    .pys-footer {
+      flex: 0 0 auto;
+      border-top: 1px solid #e5edf3;
+      padding-top: 9px;
+      background: #ffffff;
+    }
+
+    .pys-totals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .pys-total-box {
+      background: #f4f8fb;
+      border: 1px solid #d9e1e8;
+      border-radius: 10px;
+      padding: 9px;
+      min-width: 0;
+    }
+
+    .pys-total-label {
+      display: block;
+      font-size: 11px;
+      line-height: 1.15;
+      color: #000000;
+    }
+
+    .pys-total-value {
+      display: block;
+      margin-top: 3px;
+      font-size: 17px;
+      color: #06417c;
+      font-weight: 700;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    .pys-selected-count {
+      font-size: 12px;
+      line-height: 1.2;
+      margin: -2px 0 8px 0;
+      color: #000000;
+      text-align: center;
+    }
+
+    .pys-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    #pys-nyx-calculator button,
+    #pys-nyx-calculator a.pys-button {
+      width: 100%;
+      padding: 11px;
+      background: #06417c;
+      color: #ffffff;
+      border: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    #pys-nyx-calculator button:hover,
+    #pys-nyx-calculator a.pys-button:hover { opacity: 0.92; }
+
+    #pys-nyx-calculator button.pys-secondary {
+      background: #ffffff;
+      color: #06417c;
+      border: 1px solid #06417c;
+    }
+
+    #pys-nyx-calculator button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 560px) {
+      #pys-nyx-calculator {
+        min-height: 700px;
+        padding: 12px;
+        border-radius: 12px;
+        box-shadow: none;
+      }
+
+      #pys-nyx-calculator h2 { font-size: 18px; }
+      #pys-nyx-calculator h3 { font-size: 18px; }
+      #pys-nyx-calculator p { font-size: 13px; }
+      #pys-step-subtitle { display: none; }
+
+      .pys-step-pill { font-size: 10.5px; padding: 5px 7px; }
+      .pys-body { padding: 9px 0; }
+      .pys-step-intro { margin-bottom: 6px; }
+      .pys-step-help { font-size: 11.5px !important; }
+
+      .pys-card-list { gap: 7px; }
+      .pys-card { padding: 9px; }
+      .pys-option-card { min-height: 78px; padding: 9px; }
+
+      .pys-choice-grid { grid-template-columns: 20px minmax(0, 1fr) auto; gap: 7px; }
+      .pys-title { font-size: 13px; line-height: 1.27; }
+      .pys-small { font-size: 11px; }
+      .pys-price { font-size: 13px; }
+
+      .pys-search-row { grid-template-columns: 1fr; gap: 6px; margin-bottom: 7px; }
+      .pys-search { padding: 8px 9px; font-size: 13px; }
+      .pys-mini-btn { min-height: 34px; padding: 8px !important; font-size: 12px !important; }
+
+      .pys-option-pager { gap: 6px; margin-top: 7px; }
+      .pys-page-label { font-size: 11px; }
+
+      .pys-note, .pys-box { padding: 9px; font-size: 12.5px; }
+
+      .pys-footer { padding-top: 8px; }
+      .pys-totals { gap: 6px; margin-bottom: 6px; }
+      .pys-total-box { padding: 7px; }
+      .pys-total-label { font-size: 9.8px; }
+      .pys-total-value { font-size: 13px; }
+      .pys-selected-count { font-size: 11px; margin-bottom: 6px; }
+      .pys-buttons { gap: 6px; }
+
+      #pys-nyx-calculator button,
+      #pys-nyx-calculator a.pys-button {
+        padding: 10px 8px;
+        font-size: 13px;
+        border-radius: 8px;
+      }
+
+      .pys-summary-line { display: block; }
+      .pys-summary-line .pys-price { display: block; text-align: left; margin-top: 3px; }
+    }
+
+    @media (max-width: 380px) {
+      #pys-nyx-calculator { padding: 10px; min-height: 700px; }
+      #pys-nyx-calculator h2 { font-size: 17px; }
+      .pys-total-value { font-size: 12px; }
+      .pys-total-label { font-size: 9.4px; }
+      .pys-option-card { min-height: 82px; }
+    }
+
+    #pys-nyx-desktop-app {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .pys-body {
+      height: 100%;
+    }
+
+    .pys-card-list {
+      overflow: hidden;
+    }
+
+  </style>
+</head>
+
+<body>
+  <main class="pys-page">
+    <div class="pys-wrapper">
+      <header class="pys-top">
+        <div class="pys-lang-switch"><a href="/nyx-42c/">EN</a><span>ES</span></div>
+        <div class="pys-brand">Premium Yachts Spain</div>
+        <h1>Configurador de precio NYX 42C</h1>
+        <p>
+          Configure a new NYX 42C catamaran, select equipment options and download an indicative PDF estimate.
+          Final specification and price must be confirmed individually.
+        </p>
+      </header>
+
+      <section id="pys-nyx-calculator">
+  <div id="pys-nyx-desktop-app">
+  <div class="pys-header">
+    <div class="pys-header-top">
+      <div>
+        <h2>NYX 42C Price Calculator</h2>
+        <p id="pys-step-subtitle">Configure un precio estimado para un catamarán NYX 42C nuevo.</p>
+      </div>
+      <div class="pys-step-pill" id="pys-step-pill">Paso 1</div>
+    </div>
+    <div class="pys-progress"><div class="pys-progress-bar" id="pys-progress-bar"></div></div>
+  </div>
+
+  <div class="pys-body" id="pys-body"></div>
+
+  <div class="pys-footer">
+    <div class="pys-totals">
+      <div class="pys-total-box">
+        <span class="pys-total-label">Barco + opciones, sin IVA</span>
+        <span class="pys-total-value" id="pys-subtotal">€0</span>
+      </div>
+      <div class="pys-total-box">
+        <span class="pys-total-label">Total incl. entrega a España</span>
+        <span class="pys-total-value" id="pys-total-delivery">€0</span>
+      </div>
+    </div>
+    <div class="pys-selected-count" id="pys-selected-count">Sin opciones seleccionadas</div>
+    <div class="pys-buttons">
+      <button type="button" class="pys-secondary" id="pys-back">Atrás</button>
+      <button type="button" id="pys-next">Siguiente</button>
+    </div>
+  </div>
+  </div>
+      </section>
+
+      <div class="pys-page-footer-link">
+        <a href="https://www.premiumyachts.es" target="_blank">Volver a Premium Yachts Spain</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+(function () {
+  var DATA = {"baseModels": [{"id": "base_win_2c", "title": "NYX 42C Diésel — 2 cabinas / 2 baños / 2 duchas / salón WIN+ Sport", "price": 368013}, {"id": "base_bona_2c", "title": "NYX 42C Diésel — 2 cabinas / 2 baños / 2 duchas / salón BONA", "price": 384201}, {"id": "base_bona_3c", "title": "NYX 42C Diésel — 3 cabinas / 2 baños / 2 duchas / salón BONA", "price": 384201}, {"id": "base_bona_4c", "title": "NYX 42C Diésel — 4 cabinas / 2 baños / 2 duchas / salón BONA", "price": 384201}], "packs": [{"id": "pack_great", "title": "Great Pack", "price": 14625, "description": "Paquete popular de confort y utilidad."}, {"id": "pack_perfect", "title": "Perfect Pack", "price": 19312, "description": "Incluye Great Pack y opciones adicionales de confort y energía."}], "options": [{"id": "sail_square_top", "step": "sails", "title": "Mejora a vela mayor Dacron square top de 60 m² totalmente sables", "price": 540}, {"id": "sail_code0", "step": "sails", "title": "Vela Code 0", "price": 2699}, {"id": "sail_bowsprit", "step": "sails", "title": "Bauprés y juego de jarcia para enrollador Code 0", "price": 4857}, {"id": "hw_electric_winch_40", "step": "sails", "title": "Mejora a winche eléctrico 40.2STA para escota de mayor y rizo", "price": 1727}, {"id": "rig_boom_kicker", "step": "sails", "title": "Boom kicker de aluminio anodizado", "price": 378}, {"id": "moor_fairleads", "step": "propulsion", "title": "2 guías de amarre con mordaza", "price": 346}, {"id": "windlass_handle", "step": "propulsion", "title": "Interruptor manual para molinete", "price": 238}, {"id": "anchor_counter", "step": "propulsion", "title": "Contador digital de cadena de ancla", "price": 540}, {"id": "bow_thruster", "step": "propulsion", "title": "Hélice de proa interna", "price": 5397}, {"id": "engine_yanmar_40", "step": "propulsion", "group": "engine", "title": "Mejora a Yanmar 2 × 40 HP Saildrive", "price": 11512}, {"id": "engine_yanmar_57", "step": "propulsion", "group": "engine", "title": "Mejora a Yanmar 2 × 57 HP Saildrive", "price": 17268}, {"id": "engine_volvo_51", "step": "propulsion", "group": "engine", "title": "Mejora a Volvo 2 × 51 HP Saildrive", "price": 15469}, {"id": "engine_volvo_60", "step": "propulsion", "group": "engine", "title": "Mejora a Volvo 2 × 60 HP Saildrive", "price": 20146}, {"id": "folding_props", "step": "propulsion", "title": "Mejora a hélices plegables de 3 palas", "price": 2375}, {"id": "fresh_tank_300", "step": "comfort", "title": "Opción de depósito de agua dulce 1 × 300 L", "price": 216}, {"id": "saloon_bg_lights", "step": "comfort", "title": "Tiras LED neutras de luz ambiental en salón", "price": 238}, {"id": "underwater_lights", "step": "comfort", "title": "4 luces LED submarinas de color", "price": 864}, {"id": "generator_8kw", "step": "comfort", "title": "Generador marino SLEEPER MG10i 8 kW 50 Hz 230 V con panel remoto", "price": 16189}, {"id": "ac_2cabin", "step": "comfort", "group": "aircon", "title": "Aire acondicionado reversible para versión 2 cabinas: 9000 BTU × 2, 220 V", "price": 9174}, {"id": "ac_saloon", "step": "comfort", "group": "aircon", "title": "Aire acondicionado reversible para salón: 24000 BTU × 1, 220 V", "price": 8634}, {"id": "ac_3cabin", "step": "comfort", "group": "aircon", "title": "Aire acondicionado reversible para versión 3 cabinas: 9000 BTU × 1 + 4500 BTU × 2, 220 V", "price": 10253}, {"id": "ac_4cabin", "step": "comfort", "group": "aircon", "title": "Aire acondicionado reversible para versión 4 cabinas: 4500 BTU × 4, 220 V", "price": 11332}, {"id": "gas_stove", "step": "galley", "group": "cooker", "title": "Cocina de gas de 2/3 fuegos con botella de gas (CE)", "price": 1296}, {"id": "induction_single", "step": "galley", "group": "cooker", "title": "Placa de inducción individual empotrada (versión WIN+ Sport)", "price": 270}, {"id": "induction_twin", "step": "galley", "group": "cooker", "title": "Placa de inducción doble empotrada", "price": 411}, {"id": "microwave_grill", "step": "galley", "title": "Microondas con grill", "price": 162}, {"id": "multifunction_oven", "step": "galley", "title": "Mejora de microondas a horno multifunción", "price": 950}, {"id": "fridge_under", "step": "galley", "title": "Nevera/congelador bajo encimera, 12 V", "price": 1296}, {"id": "washing_machine", "step": "galley", "title": "Lavadora en salón", "price": 626}, {"id": "dishwasher", "step": "galley", "title": "Lavavajillas bajo encimera, 220 V", "price": 702}, {"id": "drinking_ro", "step": "galley", "title": "Purificador de agua potable por ósmosis inversa, 220 V", "price": 486}, {"id": "watermaker_50", "step": "galley", "group": "watermaker", "title": "Potabilizadora 50 L/h, 12 V", "price": 10253}, {"id": "watermaker_100", "step": "galley", "group": "watermaker", "title": "Potabilizadora 100 L/h, 220 V", "price": 14894}, {"id": "nav_raymarine_vhf_ais", "step": "electronics", "title": "Paquete de navegación Raymarine: VHF de 2 estaciones y módulo AIS para CE", "price": 2591}, {"id": "radar_bracket", "step": "electronics", "title": "Radar con soporte en cruceta del mástil", "price": 3778}, {"id": "autopilot", "step": "electronics", "title": "Pantalla de piloto automático Raymarine y unidad de accionamiento", "price": 8634}, {"id": "raymarine_yacht_link", "step": "electronics", "title": "Gateway Raymarine Yacht Link", "price": 1727}, {"id": "openable_portlights_cabins", "step": "interior", "title": "4 portillos practicables para cabinas", "price": 2051}, {"id": "openable_portlights_saloon", "step": "interior", "title": "2 portillos practicables para salón delantero", "price": 1080}, {"id": "front_cockpit_teak", "step": "interior", "title": "Cockpit delantero: mejora de tapa FRP a teca", "price": 864}, {"id": "solar_bracket", "step": "interior", "title": "Soporte de acero inoxidable para paneles solares de 6 m²", "price": 842}, {"id": "aft_table_electric_berth", "step": "interior", "title": "Cockpit de popa: tablero de mesa de teca y patas eléctricas para formar cama doble", "price": 1943}, {"id": "quiet_toilets", "step": "interior", "title": "Mejora de 2 inodoros eléctricos a inodoros silenciosos", "price": 972}, {"id": "saloon_table_teak", "step": "interior", "title": "Mejora de tablero de mesa del salón a teca", "price": 1296}, {"id": "saloon_table_electric", "step": "interior", "title": "Mejora de patas de mesa del salón a versión eléctrica para formar cama", "price": 1112}, {"id": "saloon_berth_cushion", "step": "interior", "title": "Cojín para cama sobre mesa del salón", "price": 270}, {"id": "saloon_curtains", "step": "interior", "title": "Cortinas de sombreado para todo el salón", "price": 756}, {"id": "cabin_curtains", "step": "interior", "title": "Cortinas para todas las cabinas", "price": 1296}, {"id": "front_cockpit_cushions", "step": "cockpit", "title": "Cojines de solárium y asientos del cockpit delantero", "price": 875}, {"id": "helm_cushions", "step": "cockpit", "title": "Cojines de asiento y solárium de la estación de gobierno", "price": 810}, {"id": "aft_cockpit_cushions", "step": "cockpit", "title": "Cojines de asientos FRP del cockpit de popa", "price": 648}, {"id": "dinghy_outboard_bracket", "step": "cockpit", "title": "Soporte para motor fueraborda de auxiliar", "price": 87}, {"id": "deck_shower_ladder", "step": "cockpit", "title": "Ducha de cubierta agua caliente/fría y escalera de baño de acero inoxidable", "price": 486}, {"id": "carbon_tent_holders", "step": "cockpit", "title": "2 soportes de carbono para toldo con casquillos de acero inoxidable", "price": 173}, {"id": "fore_cabin_sunshade", "step": "cockpit", "title": "Sombrilla para cabina de proa", "price": 993}, {"id": "flybridge_enclosure_helm", "step": "cockpit", "group": "flybridge_enclosure", "title": "Cierre de cristal flexible solo para puesto de gobierno en flybridge", "price": 2591}, {"id": "flybridge_enclosure_full", "step": "cockpit", "group": "flybridge_enclosure", "title": "Cierre de cristal flexible para flybridge completo", "price": 4533}, {"id": "aft_cockpit_enclosure", "step": "cockpit", "title": "Cierre de cristal flexible para zona de salón del cockpit de popa", "price": 4533}, {"id": "aft_pvc_floor", "step": "cockpit", "title": "Suelo PVC tipo teca para cubierta del salón de popa y escalón de plataforma de baño", "price": 8203}, {"id": "aft_balcony_pvc_floor", "step": "cockpit", "title": "Suelo PVC tipo teca para balcón abatible del salón de popa", "price": 2742}, {"id": "front_balcony_pvc_floor", "step": "cockpit", "title": "Suelo PVC tipo teca para balcón abatible del salón delantero", "price": 945}, {"id": "aft_backside_seat", "step": "cockpit", "group": "aft_seat", "title": "Asiento trasero FRP en salón de cockpit de popa", "price": 864}, {"id": "aft_switching_seat", "step": "cockpit", "group": "aft_seat", "title": "Asiento FRP bidireccional en salón de cockpit de popa", "price": 918}, {"id": "carbon_tender", "step": "cockpit", "title": "Auxiliar de carbono 2,8 m", "price": 6476}, {"id": "color_gelcoat", "step": "cockpit", "title": "Gelcoat de color para el casco", "price": 4857}, {"id": "liferafts", "step": "commissioning", "title": "Balsa salvavidas para 6 personas × 2", "price": 2591}, {"id": "safety_package", "step": "commissioning", "title": "Paquete de seguridad: chalecos, extintores, bengalas, banderas, etc.", "price": 497}, {"id": "tools", "step": "commissioning", "title": "Herramientas básicas de reparación y mantenimiento", "price": 238}, {"id": "hull_protection", "step": "commissioning", "title": "Protección de transporte para casco", "price": 540}, {"id": "mast_rig_protection", "step": "commissioning", "title": "Protección de transporte para mástil y jarcia", "price": 216}, {"id": "anchor_chain_set", "step": "commissioning", "title": "Ancla de acero inoxidable 20 kg, cadena D10 de 75 m y cabo de ancla D18 de 20 m", "price": 1296}, {"id": "mooring_fenders", "step": "commissioning", "title": "Cabos de amarre D18 de 15 m × 4 y defensas inflables × 6", "price": 778}, {"id": "antifouling_black", "step": "commissioning", "title": "Antifouling, negro", "price": 3778}, {"id": "local_commissioning_china", "step": "commissioning", "title": "Puesta en servicio local / paquete de entrega (sujeto a confirmación)", "price": 9713}], "steps": [{"id": "base", "title": "Configuración base", "subtitle": "Elija una configuración base NYX 42C Diésel."}, {"id": "packs", "title": "Paquetes opcionales", "subtitle": "Elija un paquete opcional. Perfect Pack ya incluye Great Pack."}, {"id": "sails", "title": "Velas, jarcia y herrajes", "subtitle": "Mejoras de vela, equipo Code 0, winches y jarcia."}, {"id": "propulsion", "title": "Motor, propulsión y fondeo", "subtitle": "Mejoras de motor, hélices, controles de molinete y hélice de proa."}, {"id": "comfort", "title": "Confort, agua e iluminación", "subtitle": "Generador, aire acondicionado, agua e iluminación."}, {"id": "galley", "title": "Cocina y electrodomésticos", "subtitle": "Cocción, refrigeración, electrodomésticos y potabilizadora."}, {"id": "electronics", "title": "Electrónica y navegación", "subtitle": "Navegación, radar, piloto automático y comunicaciones."}, {"id": "interior", "title": "Interior, exterior y ventanas", "subtitle": "Portillos, opciones de salón, cortinas y mejoras exteriores."}, {"id": "cockpit", "title": "Equipamiento y acabado de cockpit", "subtitle": "Cojines, cierres, suelos, auxiliar y opciones de acabado."}, {"id": "commissioning", "title": "Listo para navegar y puesta en servicio", "subtitle": "Seguridad, protección, fondeo, antifouling y entrega."}, {"id": "summary", "title": "Resumen y PDF", "subtitle": "Revise opciones seleccionadas y descargue un presupuesto estimado en PDF."}], "deliveryEstimate": 90000};
+
+  var state = {
+    stepIndex: 0,
+    baseId: null,
+    packId: "none",
+    selected: {},
+    radios: {},
+    searchByStep: {},
+    pageByStep: {}
+  };
+
+  var groupLabels = {"engine": "Mejora de motor", "aircon": "Aire acondicionado", "cooker": "Sistema de cocina", "watermaker": "Potabilizadora", "flybridge_enclosure": "Cierre de flybridge", "aft_seat": "Asiento de cockpit de popa"};
+
+  function eur(value) {
+    return "€" + Math.round(value || 0).toLocaleString("en-GB");
+  }
+
+  function escapeHtml(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function currentStep() {
+    return DATA.steps[state.stepIndex];
+  }
+
+  function currentPageSize() {
+    return window.innerWidth <= 560 ? 3 : 4;
+  }
+
+  function selectedBase() {
+    return DATA.baseModels.find(function (item) { return item.id === state.baseId; }) || null;
+  }
+
+  function selectedPack() {
+    return DATA.packs.find(function (item) { return item.id === state.packId; }) || null;
+  }
+
+  function selectedOptionsList() {
+    var result = [];
+    DATA.options.forEach(function (option) {
+      if (option.group) {
+        if (state.radios[option.group] === option.id) result.push(option);
+      } else if (state.selected[option.id]) {
+        result.push(option);
+      }
+    });
+    return result;
+  }
+
+  function calculateTotals() {
+    var base = selectedBase();
+    var pack = selectedPack();
+    var basePrice = base ? base.price : 0;
+    var packPrice = pack ? pack.price : 0;
+    var optionSum = selectedOptionsList().reduce(function (sum, item) { return sum + item.price; }, 0);
+    var subtotal = basePrice + packPrice + optionSum;
+    return {
+      basePrice: basePrice,
+      packPrice: packPrice,
+      optionSum: optionSum,
+      subtotal: subtotal,
+      delivery: DATA.deliveryEstimate,
+      totalWithDelivery: subtotal + DATA.deliveryEstimate
+    };
+  }
+
+  function updateTotals() {
+    var totals = calculateTotals();
+    var count = selectedOptionsList().length + (selectedPack() ? 1 : 0);
+    document.getElementById("pys-subtotal").textContent = eur(totals.subtotal);
+    document.getElementById("pys-total-delivery").textContent = eur(totals.totalWithDelivery);
+    document.getElementById("pys-selected-count").textContent = count === 0 ? "Sin opciones seleccionadas" : count + (count === 1 ? " elemento seleccionado" : " elementos seleccionados");
+  }
+
+  function isOptionSelected(item) {
+    if (item.kind === "group-none") return !state.radios[item.group];
+    if (item.option.group) return state.radios[item.option.group] === item.option.id;
+    return !!state.selected[item.option.id];
+  }
+
+  function renderIntro(step, help) {
+    return "<div class='pys-step-intro'>" +
+      "<h3>" + escapeHtml(step.title) + "</h3>" +
+      "<p>" + escapeHtml(step.subtitle || "") + "</p>" +
+      (help ? "<p class='pys-step-help'>" + escapeHtml(help) + "</p>" : "") +
+    "</div>";
+  }
+
+  function renderBaseStep() {
+    var step = currentStep();
+    var html = renderIntro(step, "Toque una configuración para continuar. Todas las opciones empiezan deseleccionadas.");
+    html += "<div class='pys-card-list'>";
+    DATA.baseModels.forEach(function (model) {
+      var cls = "pys-card" + (state.baseId === model.id ? " selected" : "");
+      html += "<div class='" + cls + "' data-base-id='" + model.id + "'>" +
+        "<div class='pys-choice-grid'>" +
+          "<input type='radio' " + (state.baseId === model.id ? "checked" : "") + ">" +
+          "<span><strong class='pys-blue'>" + escapeHtml(model.title) + "</strong></span>" +
+          "<span class='pys-price'>" + eur(model.price) + "</span>" +
+        "</div>" +
+      "</div>";
+    });
+    html += "<div class='pys-note'>Los precios se muestran sin IVA. La calculadora es informativa y no sustituye un presupuesto oficial.</div>";
+    html += "</div>";
+    return html;
+  }
+
+  function renderPackStep() {
+    var step = currentStep();
+    var html = renderIntro(step, "Elija un paquete o continúe sin paquete.");
+    html += "<div class='pys-card-list'>";
+    var noneCls = "pys-card" + (state.packId === "none" ? " selected" : "");
+    html += "<div class='" + noneCls + "' data-pack-id='none'>" +
+      "<div class='pys-choice-grid'>" +
+        "<input type='radio' " + (state.packId === "none" ? "checked" : "") + ">" +
+        "<span><strong class='pys-blue'>Sin paquete seleccionado</strong><span class='pys-small'>Puede elegir opciones individuales más adelante.</span></span>" +
+        "<span class='pys-price'>€0</span>" +
+      "</div>" +
+    "</div>";
+    DATA.packs.forEach(function (pack) {
+      var cls = "pys-card" + (state.packId === pack.id ? " selected" : "");
+      html += "<div class='" + cls + "' data-pack-id='" + pack.id + "'>" +
+        "<div class='pys-choice-grid'>" +
+          "<input type='radio' " + (state.packId === pack.id ? "checked" : "") + ">" +
+          "<span><strong class='pys-blue'>" + escapeHtml(pack.title) + "</strong><span class='pys-small'>" + escapeHtml(pack.description) + "</span></span>" +
+          "<span class='pys-price'>" + eur(pack.price) + "</span>" +
+        "</div>" +
+      "</div>";
+    });
+    html += "</div>";
+    return html;
+  }
+
+  function getDisplayItems(stepId) {
+    var search = (state.searchByStep[stepId] || "").toLowerCase().trim();
+    var allOptions = DATA.options.filter(function (option) { return option.step === stepId; });
+    var groups = [];
+    var items = [];
+
+    allOptions.forEach(function (option) {
+      if (option.group && groups.indexOf(option.group) === -1) groups.push(option.group);
+    });
+
+    groups.forEach(function (groupId) {
+      var groupOptions = allOptions.filter(function (option) { return option.group === groupId; });
+      var matching = search ? groupOptions.filter(function (option) {
+        return option.title.toLowerCase().indexOf(search) !== -1 || (groupLabels[groupId] || "").toLowerCase().indexOf(search) !== -1;
+      }) : groupOptions;
+      if (!search || matching.length) {
+        items.push({ kind: "group-none", group: groupId, title: "Sin " + (groupLabels[groupId] || "opción").toLowerCase(), price: 0 });
+        matching.forEach(function (option) { items.push({ kind: "option", option: option }); });
+      }
+    });
+
+    allOptions.filter(function (option) { return !option.group; }).forEach(function (option) {
+      if (!search || option.title.toLowerCase().indexOf(search) !== -1) {
+        items.push({ kind: "option", option: option });
+      }
+    });
+
+    return items;
+  }
+
+  function renderOptionCard(item) {
+    var selected = isOptionSelected(item);
+    var cls = "pys-option-card" + (selected ? " selected" : "");
+    if (item.kind === "group-none") {
+      return "<label class='" + cls + "'>" +
+        "<div class='pys-choice-grid'>" +
+          "<input type='radio' name='pys-radio-" + item.group + "' data-group='" + item.group + "' data-option-id='' " + (selected ? "checked" : "") + ">" +
+          "<span><span class='pys-tag'>" + escapeHtml(groupLabels[item.group] || "Seleccione una opción") + "</span><span class='pys-title'>" + escapeHtml(item.title) + "</span></span>" +
+          "<span class='pys-price'>€0</span>" +
+        "</div>" +
+      "</label>";
+    }
+
+    var option = item.option;
+    var type = option.group ? "radio" : "checkbox";
+    var name = option.group ? "name='pys-radio-" + option.group + "'" : "";
+    var tag = option.group ? "<span class='pys-tag'>" + escapeHtml(groupLabels[option.group] || "Seleccione una opción") + "</span>" : "";
+
+    return "<label class='" + cls + "'>" +
+      "<div class='pys-choice-grid'>" +
+        "<input type='" + type + "' " + name + " data-option-id='" + option.id + "' data-group='" + (option.group || "") + "' " + (selected ? "checked" : "") + ">" +
+        "<span>" + tag + "<span class='pys-title pys-title-clamped' title='" + escapeHtml(option.title) + "'>" + escapeHtml(option.title) + "</span></span>" +
+        "<span class='pys-price'>" + eur(option.price) + "</span>" +
+      "</div>" +
+    "</label>";
+  }
+
+  function renderOptionsStep(stepId) {
+    var step = currentStep();
+    var items = getDisplayItems(stepId);
+    var pageSize = currentPageSize();
+    var totalPages = Math.max(1, Math.ceil(items.length / pageSize));
+    var page = state.pageByStep[stepId] || 0;
+    if (page > totalPages - 1) page = totalPages - 1;
+    state.pageByStep[stepId] = page;
+    var start = page * pageSize;
+    var visible = items.slice(start, start + pageSize);
+
+    var html = renderIntro(step, "Las opciones se muestran en páginas pequeñas para facilitar el uso en móvil. Use Más opciones para ver el resto.");
+    html += "<div class='pys-search-row'>" +
+      "<input class='pys-search' id='pys-search' type='text' placeholder='Search this category...' value='" + escapeHtml(state.searchByStep[stepId] || "") + "'>" +
+      "<button type='button' class='pys-secondary pys-mini-btn' id='pys-clear-search'>Limpiar</button>" +
+    "</div>";
+
+    if (!items.length) {
+      html += "<div class='pys-box'>No se encontraron opciones. Intente limpiar la búsqueda.</div>";
+      return html;
+    }
+
+    html += "<div class='pys-card-list'>";
+    visible.forEach(function (item) { html += renderOptionCard(item); });
+    html += "</div>";
+
+    html += "<div class='pys-option-pager'>" +
+      "<button type='button' class='pys-secondary pys-mini-btn' id='pys-prev-options' " + (page === 0 ? "disabled" : "") + ">Opciones anteriores</button>" +
+      "<div class='pys-page-label'>" + (start + 1) + "–" + Math.min(start + pageSize, items.length) + " of " + items.length + "</div>" +
+      "<button type='button' class='pys-secondary pys-mini-btn' id='pys-next-options' " + (page >= totalPages - 1 ? "disabled" : "") + ">Más opciones</button>" +
+    "</div>";
+
+    return html;
+  }
+
+  function renderSummaryStep() {
+    var step = currentStep();
+    var totals = calculateTotals();
+    var base = selectedBase();
+    var pack = selectedPack();
+    var opts = selectedOptionsList();
+    var html = renderIntro(step, "Descargue la estimación en PDF o solicite un presupuesto oficial.");
+
+    if (!base) {
+      html += "<div class='pys-note'>Vuelva atrás y seleccione primero una configuración base.</div>";
+      return html;
+    }
+
+    html += "<div class='pys-box'>" +
+      "<div class='pys-summary-line'><span><strong>Modelo base</strong><br>" + escapeHtml(base.title) + "</span><span class='pys-price'>" + eur(base.price) + "</span></div>" +
+      "<div class='pys-summary-line'><span><strong>Paquete</strong><br>" + (pack ? escapeHtml(pack.title) : "Sin paquete seleccionado") + "</span><span class='pys-price'>" + (pack ? eur(pack.price) : "€0") + "</span></div>" +
+      "<div class='pys-summary-line'><span><strong>Subtotal de opciones</strong><br>Equipamiento adicional y opciones de configuración</span><span class='pys-price'>" + eur(totals.optionSum) + "</span></div>" +
+      "<div class='pys-summary-line'><span><strong>Entrega estimada a España</strong></span><span class='pys-price'>" + eur(totals.delivery) + "</span></div>" +
+      "<div class='pys-summary-line'><span><strong>Total estimado incl. entrega, sin IVA</strong></span><span class='pys-price'>" + eur(totals.totalWithDelivery) + "</span></div>" +
+    "</div>";
+
+    html += "<div class='pys-note'>Descargue la estimación en PDF para ver la lista completa de opciones seleccionadas, modelo base, entrega estimada y precio total.</div>";
+
+    html += "<div class='pys-card-list' style='grid-template-columns:1fr; flex:0 0 auto;'>" +
+      "<button type='button' id='pys-download-pdf'>Descargar estimación PDF</button>" +
+      "<a class='pys-button' href='https://www.premiumyachts.es/contacts' target='_blank'>Solicitar presupuesto oficial</a>" +
+    "</div>";
+
+    html += "<div class='pys-note'>Este es solo un precio estimado de configuración. El precio final puede variar por cambios de precio del fabricante, costes de entrega, especificación final, puesta en servicio, moneda o tratamiento de IVA/impuestos.</div>";
+    return html;
+  }
+
+  function render() {
+    var step = currentStep();
+    var body = document.getElementById("pys-body");
+    document.getElementById("pys-step-subtitle").textContent = step.subtitle || "";
+    document.getElementById("pys-step-pill").textContent = "Paso " + (state.stepIndex + 1) + " de " + DATA.steps.length;
+    document.getElementById("pys-progress-bar").style.width = ((state.stepIndex + 1) / DATA.steps.length * 100) + "%";
+
+    if (step.id === "base") body.innerHTML = renderBaseStep();
+    else if (step.id === "packs") body.innerHTML = renderPackStep();
+    else if (step.id === "summary") body.innerHTML = renderSummaryStep();
+    else body.innerHTML = renderOptionsStep(step.id);
+
+    document.getElementById("pys-back").disabled = state.stepIndex === 0;
+    document.getElementById("pys-next").textContent = step.id === "summary" ? "Empezar de nuevo" : "Siguiente paso";
+    attachDynamicEvents();
+    updateTotals();
+  }
+
+  function attachDynamicEvents() {
+    var body = document.getElementById("pys-body");
+    var step = currentStep();
+
+    body.querySelectorAll("[data-base-id]").forEach(function (card) {
+      card.addEventListener("click", function () {
+        state.baseId = card.getAttribute("data-base-id");
+        render();
+      });
+    });
+
+    body.querySelectorAll("[data-pack-id]").forEach(function (card) {
+      card.addEventListener("click", function () {
+        state.packId = card.getAttribute("data-pack-id");
+        render();
+      });
+    });
+
+    body.querySelectorAll("input[type='checkbox'][data-option-id]").forEach(function (input) {
+      input.addEventListener("change", function () {
+        var id = input.getAttribute("data-option-id");
+        state.selected[id] = input.checked;
+        updateTotals();
+        input.closest('.pys-option-card').classList.toggle('selected', input.checked);
+      });
+    });
+
+    body.querySelectorAll("input[type='radio'][data-group]").forEach(function (input) {
+      input.addEventListener("change", function () {
+        var group = input.getAttribute("data-group");
+        var id = input.getAttribute("data-option-id");
+        if (input.checked) state.radios[group] = id || null;
+        render();
+      });
+    });
+
+    var search = document.getElementById("pys-search");
+    if (search) {
+      search.addEventListener("input", function () {
+        state.searchByStep[step.id] = search.value;
+        state.pageByStep[step.id] = 0;
+        render();
+        var nextSearch = document.getElementById("pys-search");
+        if (nextSearch) {
+          nextSearch.focus();
+          nextSearch.setSelectionRange(nextSearch.value.length, nextSearch.value.length);
+        }
+      });
+    }
+
+    var clear = document.getElementById("pys-clear-search");
+    if (clear) {
+      clear.addEventListener("click", function () {
+        state.searchByStep[step.id] = "";
+        state.pageByStep[step.id] = 0;
+        render();
+      });
+    }
+
+    var prevOptions = document.getElementById("pys-prev-options");
+    if (prevOptions) {
+      prevOptions.addEventListener("click", function () {
+        state.pageByStep[step.id] = Math.max(0, (state.pageByStep[step.id] || 0) - 1);
+        render();
+      });
+    }
+
+    var nextOptions = document.getElementById("pys-next-options");
+    if (nextOptions) {
+      nextOptions.addEventListener("click", function () {
+        state.pageByStep[step.id] = (state.pageByStep[step.id] || 0) + 1;
+        render();
+      });
+    }
+
+    var pdfButton = document.getElementById("pys-download-pdf");
+    if (pdfButton) pdfButton.addEventListener("click", downloadPDF);
+  }
+
+  function validateBeforeNext() {
+    if (currentStep().id === "base" && !state.baseId) {
+      alert("Seleccione una configuración base antes de continuar.");
+      return false;
+    }
+    return true;
+  }
+
+  function resetAll() {
+    state.stepIndex = 0;
+    state.baseId = null;
+    state.packId = "none";
+    state.selected = {};
+    state.radios = {};
+    state.searchByStep = {};
+    state.pageByStep = {};
+    render();
+  }
+
+  function getGroupedSelectedOptions() {
+    var grouped = {};
+    selectedOptionsList().forEach(function (option) {
+      var step = DATA.steps.find(function (s) { return s.id === option.step; });
+      var title = step ? step.title : "Opciones";
+      if (!grouped[title]) grouped[title] = [];
+      grouped[title].push(option);
+    });
+    return grouped;
+  }
+
+  function addPdfLine(doc, text, x, y, options) {
+    options = options || {};
+    var maxWidth = options.maxWidth || 175;
+    var lineHeight = options.lineHeight || 6;
+    var lines = doc.splitTextToSize(String(text || ""), maxWidth);
+    lines.forEach(function (line) {
+      if (y > 280) { doc.addPage(); y = 18; }
+      doc.text(line, x, y);
+      y += lineHeight;
+    });
+    return y;
+  }
+
+  function downloadPDF() {
+    var base = selectedBase();
+    if (!base) { alert("Seleccione primero una configuración base."); return; }
+    if (!window.jspdf || !window.jspdf.jsPDF) { alert("La biblioteca PDF todavía se está cargando. Inténtelo de nuevo en unos segundos."); return; }
+
+    var doc = new window.jspdf.jsPDF({ unit: "mm", format: "a4" });
+    var totals = calculateTotals();
+    var pack = selectedPack();
+    var grouped = getGroupedSelectedOptions();
+    var y = 18;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.setTextColor(6, 65, 124);
+    doc.text("Configuración estimada NYX 42C", 15, y);
+    y += 9;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    y = addPdfLine(doc, "Preparado mediante la calculadora online de Premium Yachts Spain. Los precios son indicativos y se muestran sin IVA.", 15, y);
+    y += 3;
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(6, 65, 124);
+    doc.text("Configuración base", 15, y);
+    y += 6;
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(0, 0, 0);
+    y = addPdfLine(doc, base.title + " — " + eur(base.price), 15, y);
+    y += 2;
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(6, 65, 124);
+    doc.text("Paquete", 15, y);
+    y += 6;
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(0, 0, 0);
+    y = addPdfLine(doc, pack ? (pack.title + " — " + eur(pack.price)) : "Sin paquete seleccionado — €0", 15, y);
+    y += 2;
+
+    Object.keys(grouped).forEach(function (groupTitle) {
+      if (y > 265) { doc.addPage(); y = 18; }
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(6, 65, 124);
+      doc.text(groupTitle, 15, y);
+      y += 6;
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(0, 0, 0);
+      grouped[groupTitle].forEach(function (option) {
+        y = addPdfLine(doc, "• " + option.title + " — " + eur(option.price), 18, y, { maxWidth: 170, lineHeight: 5.5 });
+      });
+      y += 2;
+    });
+
+    if (selectedOptionsList().length === 0) {
+      y = addPdfLine(doc, "No se han seleccionado opciones adicionales.", 15, y);
+      y += 3;
+    }
+
+    if (y > 240) { doc.addPage(); y = 18; }
+    doc.setDrawColor(217, 225, 232);
+    doc.line(15, y, 195, y);
+    y += 8;
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(6, 65, 124);
+    doc.text("Totales estimados", 15, y);
+    y += 7;
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(0, 0, 0);
+    doc.text("Barco + opciones seleccionadas, sin IVA:", 15, y);
+    doc.text(eur(totals.subtotal), 140, y);
+    y += 6;
+    doc.text("Entrega estimada a España:", 15, y);
+    doc.text(eur(totals.delivery), 140, y);
+    y += 6;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Total estimado incl. entrega, sin IVA:", 15, y);
+    doc.text(eur(totals.totalWithDelivery), 140, y);
+    y += 10;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    var note = "Nota importante: este documento es solo una configuración estimada y no constituye un presupuesto vinculante. El precio final puede variar por cambios de precio del fabricante, especificación final, disponibilidad, costes de entrega, puesta en servicio, moneda, IVA/impuestos u otros costes. El presupuesto oficial debe confirmarse individualmente por Premium Yachts Spain y/o el fabricante.";
+    addPdfLine(doc, note, 15, y, { maxWidth: 180, lineHeight: 5 });
+    doc.save("NYX42C_Configuracion_Estimada.pdf");
+  }
+
+  document.getElementById("pys-back").addEventListener("click", function () {
+    if (state.stepIndex > 0) { state.stepIndex -= 1; render(); }
+  });
+
+  document.getElementById("pys-next").addEventListener("click", function () {
+    if (currentStep().id === "summary") { resetAll(); return; }
+    if (!validateBeforeNext()) return;
+    if (state.stepIndex < DATA.steps.length - 1) { state.stepIndex += 1; render(); }
+  });
+
+  window.addEventListener("resize", function () { render(); });
+  render();
+})();
+  </script>
+</body>
+</html>
