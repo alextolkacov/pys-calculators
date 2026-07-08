@@ -1,340 +1,1219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yacht Delivery Price Estimate | Premium Yachts Spain</title>
-  <meta name="description" content="Calculate an approximate yacht delivery route distance and starting delivery price with Premium Yachts Spain." />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: 'Playfair Display', Georgia, serif; background: #f4f8fb; color: #000; font-size: 14px; }
-    .pys-page { min-height: 100vh; padding: 28px 16px; display: flex; align-items: center; justify-content: center; }
-    .pys-wrapper { width: 100%; max-width: 860px; }
-    .pys-top { text-align: center; margin-bottom: 20px; position: relative; }
-    .pys-brand { color: #06417c; font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-    .pys-lang-switch { display: flex; justify-content: center; gap: 8px; margin-bottom: 14px; font-size: 13px; }
-    .pys-lang-switch a, .pys-lang-switch span { padding: 7px 10px; border: 1px solid #d9e1e8; border-radius: 999px; text-decoration: none; color: #06417c; font-weight: 600; background: #fff; }
-    .pys-lang-switch span { background: #06417c; color: #fff; border-color: #06417c; }
-    .pys-top h1 { margin: 0 0 10px; color: #06417c; font-size: 36px; line-height: 1.15; font-weight: 600; }
-    .pys-top p { max-width: 700px; margin: 0 auto; line-height: 1.6; font-size: 15px; }
-    .pys-card { width: 100%; margin: 0 auto; padding: 30px; border: 1px solid #d9e1e8; border-radius: 22px; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.07); font-size: 14px; color: #000; }
-    .pys-card h2, .pys-card h3, .pys-card label { color: #06417c; }
-    .pys-card h2 { margin: 0 0 10px; font-size: 28px; line-height: 1.2; font-weight: 600; }
-    .pys-card h3 { margin: 0 0 12px; font-size: 26px; line-height: 1.2; font-weight: 600; }
-    .pys-card p { margin: 8px 0; font-size: 14px; line-height: 1.6; color: #000; }
-    .pys-card label { display: block; margin-top: 16px; font-size: 14px; font-weight: 600; }
-    .pys-card input, .pys-card select { width: 100%; padding: 12px; margin-top: 6px; border: 1px solid #ccd6dd; border-radius: 10px; font-size: 14px; font-family: 'Playfair Display', Georgia, serif; color: #000; background: #fff; }
-    .pys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
-    .pys-card button, .pys-card a.pys-button { width: 100%; margin-top: 22px; padding: 14px; background: #06417c; color: #fff; border: none; border-radius: 10px; font-size: 14px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; }
-    .pys-card button:hover, .pys-card a.pys-button:hover { opacity: .92; }
-    #pys-result-view { display: none; }
-    .pys-big-result { font-size: 36px; line-height: 1.15; font-weight: 700; margin: 4px 0 18px; color: #06417c; }
-    .pys-medium-result { font-size: 26px; line-height: 1.2; font-weight: 700; margin: 4px 0 18px; color: #06417c; }
-    .pys-box { margin-top: 16px; padding: 16px; background: #f4f8fb; border-radius: 14px; border: 1px solid #d9e1e8; font-size: 14px; line-height: 1.6; color: #000; }
-    .pys-note { margin-top: 16px; padding: 16px; background: #fff; border: 1px solid #d9e1e8; border-radius: 14px; font-size: 14px; line-height: 1.6; }
-    .pys-secondary-button { background: #fff !important; color: #06417c !important; border: 1px solid #06417c !important; margin-top: 12px !important; }
-    .pys-footer-link { text-align: center; margin-top: 22px; }
-    .pys-footer-link a { color: #06417c; text-decoration: none; font-weight: 600; }
-    @media (max-width: 760px) {
-      .pys-page { align-items: flex-start; padding: 18px 12px; }
-      .pys-top h1 { font-size: 28px; }
-      .pys-top p { font-size: 14px; }
-      .pys-card { padding: 20px; border-radius: 18px; }
-      .pys-card h2 { font-size: 24px; }
-      .pys-card h3 { font-size: 22px; }
-      .pys-grid { grid-template-columns: 1fr; gap: 0; }
-      .pys-big-result { font-size: 30px; }
-      .pys-medium-result { font-size: 23px; }
-    }
-</style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Yacht Delivery Price Estimate | Premium Yachts Spain</title>
+    <meta name="description"
+          content="Calculate an approximate yacht delivery route distance and starting delivery price with Premium Yachts Spain."/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Playfair Display', Georgia, serif;
+            background: #f4f8fb;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .pys-page {
+            min-height: 100vh;
+            padding: 28px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pys-wrapper {
+            width: 100%;
+            max-width: 860px;
+        }
+
+        .pys-top {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .pys-brand {
+            color: #06417c;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .pys-lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-size: 13px;
+        }
+
+        .pys-lang-switch a, .pys-lang-switch span {
+            padding: 7px 10px;
+            border: 1px solid #d9e1e8;
+            border-radius: 999px;
+            text-decoration: none;
+            color: #06417c;
+            font-weight: 600;
+            background: #fff;
+        }
+
+        .pys-lang-switch span {
+            background: #06417c;
+            color: #fff;
+            border-color: #06417c;
+        }
+
+        .pys-top h1 {
+            margin: 0 0 10px;
+            color: #06417c;
+            font-size: 36px;
+            line-height: 1.15;
+            font-weight: 600;
+        }
+
+        .pys-top p {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .pys-card {
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px;
+            border: 1px solid #d9e1e8;
+            border-radius: 22px;
+            background: #fff;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .07);
+            font-size: 14px;
+            color: #000;
+        }
+
+        .pys-card h2, .pys-card h3, .pys-card label {
+            color: #06417c;
+        }
+
+        .pys-card h2 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .pys-card h3 {
+            margin: 0 0 12px;
+            font-size: 26px;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .pys-card p {
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #000;
+        }
+
+        .pys-card label {
+            display: block;
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pys-card input, .pys-card select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccd6dd;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #000;
+            background: #fff;
+        }
+
+        .pys-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 16px;
+        }
+
+        .pys-port-grid {
+            position: relative;
+            z-index: 5;
+        }
+
+        .pys-combo {
+            position: relative;
+        }
+
+        .pys-combo-list {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 6px);
+            z-index: 50;
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid #ccd6dd;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+            padding: 6px;
+        }
+
+        .pys-combo-list.pys-open {
+            display: block;
+        }
+
+        .pys-combo-option,
+        .pys-combo-empty {
+            width: 100%;
+            padding: 12px 13px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.35;
+            color: #000000;
+        }
+
+        .pys-combo-option {
+            cursor: pointer;
+            background: #ffffff;
+            border: 0;
+            text-align: left;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .pys-combo-option:hover,
+        .pys-combo-option.pys-active {
+            background: #f4f8fb;
+            color: #06417c;
+        }
+
+        .pys-combo-empty {
+            color: #555555;
+        }
+
+        @media (max-width: 760px) {
+            .pys-combo-list {
+                max-height: 320px;
+            }
+
+            .pys-combo-option,
+            .pys-combo-empty {
+                padding: 14px 13px;
+                font-size: 15px;
+            }
+        }
+
+        .pys-card button, .pys-card a.pys-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            background: #06417c;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .pys-card button:hover, .pys-card a.pys-button:hover {
+            opacity: .92;
+        }
+
+        #pys-result-view {
+            display: none;
+        }
+
+        .pys-big-result {
+            font-size: 36px;
+            line-height: 1.15;
+            font-weight: 700;
+            margin: 4px 0 18px;
+            color: #06417c;
+        }
+
+        .pys-medium-result {
+            font-size: 26px;
+            line-height: 1.2;
+            font-weight: 700;
+            margin: 4px 0 18px;
+            color: #06417c;
+        }
+
+        .pys-box {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f4f8fb;
+            border-radius: 14px;
+            border: 1px solid #d9e1e8;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #000;
+        }
+
+        .pys-note {
+            margin-top: 16px;
+            padding: 16px;
+            background: #fff;
+            border: 1px solid #d9e1e8;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .pys-secondary-button {
+            background: #fff !important;
+            color: #06417c !important;
+            border: 1px solid #06417c !important;
+            margin-top: 12px !important;
+        }
+
+        .pys-footer-link {
+            text-align: center;
+            margin-top: 22px;
+        }
+
+        .pys-footer-link a {
+            color: #06417c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 760px) {
+            .pys-page {
+                align-items: flex-start;
+                padding: 18px 12px;
+            }
+
+            .pys-top h1 {
+                font-size: 28px;
+            }
+
+            .pys-top p {
+                font-size: 14px;
+            }
+
+            .pys-card {
+                padding: 20px;
+                border-radius: 18px;
+            }
+
+            .pys-card h2 {
+                font-size: 24px;
+            }
+
+            .pys-card h3 {
+                font-size: 22px;
+            }
+
+            .pys-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .pys-big-result {
+                font-size: 30px;
+            }
+
+            .pys-medium-result {
+                font-size: 23px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main class="pys-page">
+<main class="pys-page">
     <div class="pys-wrapper">
-      <header class="pys-top">
-        <div class="pys-lang-switch"><span>EN</span><a href="/es/yacht-delivery/">ES</a></div>
-        <div class="pys-brand">Premium Yachts Spain</div>
-        <h1>Yacht Delivery Price Estimate</h1>
-        <p>Calculate an approximate sea route distance and starting yacht delivery price. The result is indicative and must be confirmed individually.</p>
-      </header>
-      <section id="pys-delivery-calculator" class="pys-card">
-        <div id="pys-form-view">
-          <h2>Calculate delivery estimate</h2>
-          <p>Search the start and end point to calculate an approximate sea route distance and estimated yacht delivery fee.</p>
-          <div class="pys-grid">
-            <div><label for="pys-start">Start point</label><input id="pys-start" type="text" list="pys-port-list" placeholder="Start typing: Altea, Barcelona, Palma, Cannes..." autocomplete="off"></div>
-            <div><label for="pys-end">End point</label><input id="pys-end" type="text" list="pys-port-list" placeholder="Start typing: Ibiza, Genoa, Split, Athens, Marmaris..." autocomplete="off"></div>
-          </div>
-          <datalist id="pys-port-list"></datalist>
-          <div class="pys-grid">
-            <div><label for="pys-type">Yacht type</label><select id="pys-type"><option value="sailing">Sailing yacht</option><option value="motor">Motor yacht</option></select></div>
-            <div><label for="pys-length">Yacht length</label><select id="pys-length"><option value="small">Up to 12 m</option><option value="medium">12–18 m</option><option value="large">18–24 m</option><option value="xlarge">Over 24 m</option></select></div>
-          </div>
-          <div class="pys-grid">
-            <div><label for="pys-complexity">Delivery complexity</label><select id="pys-complexity"><option value="standard">Standard Mediterranean delivery</option><option value="offshore">Long passage / offshore delivery</option><option value="complex">Complex delivery / multiple formalities</option></select></div>
-            <div><label for="pys-urgency">Timing</label><select id="pys-urgency"><option value="standard">Standard planning</option><option value="urgent">Urgent delivery</option></select></div>
-          </div>
-          <button type="button" id="pys-calculate">Calculate estimate</button>
-        </div>
-        <div id="pys-result-view">
-          <h3>Estimated delivery calculation</h3>
-          <p>Approximate sea route distance:</p>
-          <div id="pys-distance" class="pys-medium-result"></div>
-          <p>Estimated starting price:</p>
-          <div id="pys-price" class="pys-big-result"></div>
-          <div id="pys-route" class="pys-box"></div>
-          <div class="pys-note"><p>The distance is calculated as an approximate sea route using a marine route graph, not a road or land distance. Final passage planning must always be confirmed using marine charts, weather routing and the yacht’s real condition.</p><p>This estimate does not include fuel, marina fees, flights, transport, customs, canal fees, waiting time, weather delays or VAT where applicable.</p></div>
-          <a class="pys-button" href="https://www.premiumyachts.es/contacts" target="_blank">Request exact quote</a>
-          <button type="button" id="pys-new-route" class="pys-secondary-button">New route</button>
-        </div>
-      </section>
-      <div class="pys-footer-link"><a href="https://www.premiumyachts.es" target="_blank">Back to Premium Yachts Spain</a></div>
+        <header class="pys-top">
+            <div class="pys-lang-switch"><span>EN</span><a
+                    href="/es/yacht-delivery/">ES</a></div>
+            <div class="pys-brand">Premium Yachts Spain</div>
+            <h1>Yacht Delivery Price Estimate</h1>
+            <p>Calculate an approximate sea route distance and starting yacht
+                delivery price. The result is indicative and must be confirmed
+                individually.</p>
+        </header>
+        <section id="pys-delivery-calculator" class="pys-card">
+            <div id="pys-form-view">
+                <h2>Calculate delivery estimate</h2>
+                <p>Search the start and end point to calculate an approximate
+                    sea route distance and estimated yacht delivery fee.</p>
+                <div class="pys-grid pys-port-grid">
+                    <div>
+                        <label for="pys-start">Start point</label>
+                        <div class="pys-combo" data-combo="start">
+                            <input id="pys-start" type="text"
+                                   placeholder="Search port: Altea, Barcelona, Palma, Cannes..."
+                                   autocomplete="off" aria-expanded="false"
+                                   aria-controls="pys-start-list">
+                            <div id="pys-start-list" class="pys-combo-list"
+                                 role="listbox"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="pys-end">End point</label>
+                        <div class="pys-combo" data-combo="end">
+                            <input id="pys-end" type="text"
+                                   placeholder="Search port: Ibiza, Genoa, Split, Athens, Marmaris..."
+                                   autocomplete="off" aria-expanded="false"
+                                   aria-controls="pys-end-list">
+                            <div id="pys-end-list" class="pys-combo-list"
+                                 role="listbox"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pys-grid">
+                    <div><label for="pys-type">Yacht type</label><select
+                            id="pys-type">
+                        <option value="sailing">Sailing yacht</option>
+                        <option value="motor">Motor yacht</option>
+                    </select></div>
+                    <div><label for="pys-length">Yacht length</label><select
+                            id="pys-length">
+                        <option value="small">Up to 12 m</option>
+                        <option value="medium">12–18 m</option>
+                        <option value="large">18–24 m</option>
+                        <option value="xlarge">Over 24 m</option>
+                    </select></div>
+                </div>
+                <div class="pys-grid">
+                    <div><label for="pys-complexity">Delivery
+                        complexity</label><select id="pys-complexity">
+                        <option value="standard">Standard Mediterranean
+                            delivery
+                        </option>
+                        <option value="offshore">Long passage / offshore
+                            delivery
+                        </option>
+                        <option value="complex">Complex delivery / multiple
+                            formalities
+                        </option>
+                    </select></div>
+                    <div><label for="pys-urgency">Timing</label><select
+                            id="pys-urgency">
+                        <option value="standard">Standard planning</option>
+                        <option value="urgent">Urgent delivery</option>
+                    </select></div>
+                </div>
+                <button type="button" id="pys-calculate">Calculate estimate
+                </button>
+            </div>
+            <div id="pys-result-view">
+                <h3>Estimated delivery calculation</h3>
+                <p>Approximate sea route distance:</p>
+                <div id="pys-distance" class="pys-medium-result"></div>
+                <p>Estimated starting price:</p>
+                <div id="pys-price" class="pys-big-result"></div>
+                <div id="pys-route" class="pys-box"></div>
+                <div class="pys-note"><p>The distance is calculated as an
+                    approximate sea route using a marine route graph, not a
+                    road or land distance. Final passage planning must always
+                    be confirmed using marine charts, weather routing and the
+                    yacht’s real condition.</p>
+                    <p>This estimate does not include fuel, marina fees,
+                        flights, transport, customs, canal fees, waiting time,
+                        weather delays or VAT where applicable.</p></div>
+                <a class="pys-button"
+                   href="https://www.premiumyachts.es/contacts"
+                   target="_blank">Request exact quote</a>
+                <button type="button" id="pys-new-route"
+                        class="pys-secondary-button">New route
+                </button>
+            </div>
+        </section>
+        <div class="pys-footer-link"><a href="https://www.premiumyachts.es"
+                                        target="_blank">Back to Premium Yachts
+            Spain</a></div>
     </div>
-  </main>
-  <script>
-  (function () {
-    var nodes = {
-    altea: { name: "Altea / Marina Greenwich, Spain", lat: 38.62, lon: -0.00, type: "port" },
-    alicante: { name: "Alicante, Spain", lat: 38.34, lon: -0.48, type: "port" },
-    denia: { name: "Dénia, Spain", lat: 38.84, lon: 0.11, type: "port" },
-    valencia: { name: "Valencia, Spain", lat: 39.46, lon: -0.32, type: "port" },
-    castellon: { name: "Castellón, Spain", lat: 39.98, lon: 0.03, type: "port" },
-    tarragona: { name: "Tarragona, Spain", lat: 41.11, lon: 1.25, type: "port" },
-    barcelona: { name: "Barcelona, Spain", lat: 41.35, lon: 2.17, type: "port" },
-    cartagena: { name: "Cartagena, Spain", lat: 37.60, lon: -0.98, type: "port" },
-    almeria: { name: "Almería, Spain", lat: 36.83, lon: -2.46, type: "port" },
-    malaga: { name: "Málaga, Spain", lat: 36.72, lon: -4.42, type: "port" },
-    gibraltar: { name: "Gibraltar", lat: 36.14, lon: -5.35, type: "port" },
-    cadiz: { name: "Cádiz, Spain", lat: 36.53, lon: -6.29, type: "port" },
-    huelva: { name: "Huelva, Spain", lat: 37.25, lon: -6.95, type: "port" },
-    lagos: { name: "Lagos, Portugal", lat: 37.10, lon: -8.67, type: "port" },
-    lisbon: { name: "Lisbon, Portugal", lat: 38.70, lon: -9.16, type: "port" },
-    porto: { name: "Porto, Portugal", lat: 41.14, lon: -8.65, type: "port" },
+</main>
+<script>
+    (function () {
+        var nodes = {
+            altea: {
+                name: "Altea / Marina Greenwich, Spain",
+                lat: 38.62,
+                lon: -0.00,
+                type: "port"
+            },
+            alicante: {
+                name: "Alicante, Spain",
+                lat: 38.34,
+                lon: -0.48,
+                type: "port"
+            },
+            denia: {name: "Dénia, Spain", lat: 38.84, lon: 0.11, type: "port"},
+            valencia: {
+                name: "Valencia, Spain",
+                lat: 39.46,
+                lon: -0.32,
+                type: "port"
+            },
+            castellon: {
+                name: "Castellón, Spain",
+                lat: 39.98,
+                lon: 0.03,
+                type: "port"
+            },
+            tarragona: {
+                name: "Tarragona, Spain",
+                lat: 41.11,
+                lon: 1.25,
+                type: "port"
+            },
+            barcelona: {
+                name: "Barcelona, Spain",
+                lat: 41.35,
+                lon: 2.17,
+                type: "port"
+            },
+            cartagena: {
+                name: "Cartagena, Spain",
+                lat: 37.60,
+                lon: -0.98,
+                type: "port"
+            },
+            almeria: {
+                name: "Almería, Spain",
+                lat: 36.83,
+                lon: -2.46,
+                type: "port"
+            },
+            malaga: {
+                name: "Málaga, Spain",
+                lat: 36.72,
+                lon: -4.42,
+                type: "port"
+            },
+            gibraltar: {
+                name: "Gibraltar",
+                lat: 36.14,
+                lon: -5.35,
+                type: "port"
+            },
+            cadiz: {
+                name: "Cádiz, Spain",
+                lat: 36.53,
+                lon: -6.29,
+                type: "port"
+            },
+            huelva: {
+                name: "Huelva, Spain",
+                lat: 37.25,
+                lon: -6.95,
+                type: "port"
+            },
+            lagos: {
+                name: "Lagos, Portugal",
+                lat: 37.10,
+                lon: -8.67,
+                type: "port"
+            },
+            lisbon: {
+                name: "Lisbon, Portugal",
+                lat: 38.70,
+                lon: -9.16,
+                type: "port"
+            },
+            porto: {
+                name: "Porto, Portugal",
+                lat: 41.14,
+                lon: -8.65,
+                type: "port"
+            },
 
-    ibiza: { name: "Ibiza, Spain", lat: 38.91, lon: 1.43, type: "port" },
-    palma: { name: "Palma de Mallorca, Spain", lat: 39.57, lon: 2.65, type: "port" },
-    alcudia: { name: "Alcúdia, Mallorca, Spain", lat: 39.85, lon: 3.13, type: "port" },
-    mahon: { name: "Mahón, Menorca, Spain", lat: 39.89, lon: 4.27, type: "port" },
+            ibiza: {name: "Ibiza, Spain", lat: 38.91, lon: 1.43, type: "port"},
+            palma: {
+                name: "Palma de Mallorca, Spain",
+                lat: 39.57,
+                lon: 2.65,
+                type: "port"
+            },
+            alcudia: {
+                name: "Alcúdia, Mallorca, Spain",
+                lat: 39.85,
+                lon: 3.13,
+                type: "port"
+            },
+            mahon: {
+                name: "Mahón, Menorca, Spain",
+                lat: 39.89,
+                lon: 4.27,
+                type: "port"
+            },
 
-    portvendres: { name: "Port-Vendres, France", lat: 42.52, lon: 3.11, type: "port" },
-    marseille: { name: "Marseille, France", lat: 43.30, lon: 5.37, type: "port" },
-    toulon: { name: "Toulon, France", lat: 43.12, lon: 5.93, type: "port" },
-    sainttropez: { name: "Saint-Tropez, France", lat: 43.27, lon: 6.64, type: "port" },
-    cannes: { name: "Cannes, France", lat: 43.55, lon: 7.02, type: "port" },
-    nice: { name: "Nice, France", lat: 43.70, lon: 7.27, type: "port" },
-    monaco: { name: "Monaco", lat: 43.73, lon: 7.42, type: "port" },
-    ajaccio: { name: "Ajaccio, Corsica, France", lat: 41.92, lon: 8.74, type: "port" },
-    bonifacio: { name: "Bonifacio, Corsica, France", lat: 41.39, lon: 9.16, type: "port" },
-    bastia: { name: "Bastia, Corsica, France", lat: 42.70, lon: 9.45, type: "port" },
+            portvendres: {
+                name: "Port-Vendres, France",
+                lat: 42.52,
+                lon: 3.11,
+                type: "port"
+            },
+            marseille: {
+                name: "Marseille, France",
+                lat: 43.30,
+                lon: 5.37,
+                type: "port"
+            },
+            toulon: {
+                name: "Toulon, France",
+                lat: 43.12,
+                lon: 5.93,
+                type: "port"
+            },
+            sainttropez: {
+                name: "Saint-Tropez, France",
+                lat: 43.27,
+                lon: 6.64,
+                type: "port"
+            },
+            cannes: {
+                name: "Cannes, France",
+                lat: 43.55,
+                lon: 7.02,
+                type: "port"
+            },
+            nice: {name: "Nice, France", lat: 43.70, lon: 7.27, type: "port"},
+            monaco: {name: "Monaco", lat: 43.73, lon: 7.42, type: "port"},
+            ajaccio: {
+                name: "Ajaccio, Corsica, France",
+                lat: 41.92,
+                lon: 8.74,
+                type: "port"
+            },
+            bonifacio: {
+                name: "Bonifacio, Corsica, France",
+                lat: 41.39,
+                lon: 9.16,
+                type: "port"
+            },
+            bastia: {
+                name: "Bastia, Corsica, France",
+                lat: 42.70,
+                lon: 9.45,
+                type: "port"
+            },
 
-    genoa: { name: "Genoa, Italy", lat: 44.41, lon: 8.93, type: "port" },
-    laspezia: { name: "La Spezia, Italy", lat: 44.10, lon: 9.82, type: "port" },
-    livorno: { name: "Livorno, Italy", lat: 43.55, lon: 10.31, type: "port" },
-    civitavecchia: { name: "Civitavecchia / Rome, Italy", lat: 42.09, lon: 11.79, type: "port" },
-    ponza: { name: "Ponza sea waypoint, Italy", lat: 40.90, lon: 12.96, type: "waypoint" },
-    naples: { name: "Naples, Italy", lat: 40.84, lon: 14.25, type: "port" },
-    salerno: { name: "Salerno, Italy", lat: 40.68, lon: 14.76, type: "port" },
-    olbia: { name: "Olbia, Sardinia, Italy", lat: 40.92, lon: 9.52, type: "port" },
-    cagliari: { name: "Cagliari, Sardinia, Italy", lat: 39.21, lon: 9.12, type: "port" },
-    trapani: { name: "Trapani, Sicily, Italy", lat: 38.02, lon: 12.51, type: "port" },
-    palermo: { name: "Palermo, Sicily, Italy", lat: 38.12, lon: 13.36, type: "port" },
-    messina: { name: "Messina, Sicily, Italy", lat: 38.19, lon: 15.56, type: "port" },
-    catania: { name: "Catania, Sicily, Italy", lat: 37.50, lon: 15.09, type: "port" },
-    bari: { name: "Bari, Italy", lat: 41.13, lon: 16.87, type: "port" },
-    brindisi: { name: "Brindisi, Italy", lat: 40.64, lon: 17.95, type: "port" },
-    ancona: { name: "Ancona, Italy", lat: 43.62, lon: 13.51, type: "port" },
-    venice: { name: "Venice, Italy", lat: 45.44, lon: 12.33, type: "port" },
-    trieste: { name: "Trieste, Italy", lat: 45.65, lon: 13.77, type: "port" },
+            genoa: {name: "Genoa, Italy", lat: 44.41, lon: 8.93, type: "port"},
+            laspezia: {
+                name: "La Spezia, Italy",
+                lat: 44.10,
+                lon: 9.82,
+                type: "port"
+            },
+            livorno: {
+                name: "Livorno, Italy",
+                lat: 43.55,
+                lon: 10.31,
+                type: "port"
+            },
+            civitavecchia: {
+                name: "Civitavecchia / Rome, Italy",
+                lat: 42.09,
+                lon: 11.79,
+                type: "port"
+            },
+            ponza: {
+                name: "Ponza sea waypoint, Italy",
+                lat: 40.90,
+                lon: 12.96,
+                type: "waypoint"
+            },
+            naples: {
+                name: "Naples, Italy",
+                lat: 40.84,
+                lon: 14.25,
+                type: "port"
+            },
+            salerno: {
+                name: "Salerno, Italy",
+                lat: 40.68,
+                lon: 14.76,
+                type: "port"
+            },
+            olbia: {
+                name: "Olbia, Sardinia, Italy",
+                lat: 40.92,
+                lon: 9.52,
+                type: "port"
+            },
+            cagliari: {
+                name: "Cagliari, Sardinia, Italy",
+                lat: 39.21,
+                lon: 9.12,
+                type: "port"
+            },
+            trapani: {
+                name: "Trapani, Sicily, Italy",
+                lat: 38.02,
+                lon: 12.51,
+                type: "port"
+            },
+            palermo: {
+                name: "Palermo, Sicily, Italy",
+                lat: 38.12,
+                lon: 13.36,
+                type: "port"
+            },
+            messina: {
+                name: "Messina, Sicily, Italy",
+                lat: 38.19,
+                lon: 15.56,
+                type: "port"
+            },
+            catania: {
+                name: "Catania, Sicily, Italy",
+                lat: 37.50,
+                lon: 15.09,
+                type: "port"
+            },
+            bari: {name: "Bari, Italy", lat: 41.13, lon: 16.87, type: "port"},
+            brindisi: {
+                name: "Brindisi, Italy",
+                lat: 40.64,
+                lon: 17.95,
+                type: "port"
+            },
+            ancona: {
+                name: "Ancona, Italy",
+                lat: 43.62,
+                lon: 13.51,
+                type: "port"
+            },
+            venice: {
+                name: "Venice, Italy",
+                lat: 45.44,
+                lon: 12.33,
+                type: "port"
+            },
+            trieste: {
+                name: "Trieste, Italy",
+                lat: 45.65,
+                lon: 13.77,
+                type: "port"
+            },
 
-    valletta: { name: "Valletta, Malta", lat: 35.90, lon: 14.51, type: "port" },
+            valletta: {
+                name: "Valletta, Malta",
+                lat: 35.90,
+                lon: 14.51,
+                type: "port"
+            },
 
-    pula: { name: "Pula, Croatia", lat: 44.87, lon: 13.85, type: "port" },
-    zadar: { name: "Zadar, Croatia", lat: 44.12, lon: 15.23, type: "port" },
-    split: { name: "Split, Croatia", lat: 43.51, lon: 16.44, type: "port" },
-    dubrovnik: { name: "Dubrovnik, Croatia", lat: 42.65, lon: 18.09, type: "port" },
-    tivat: { name: "Tivat, Montenegro", lat: 42.43, lon: 18.70, type: "port" },
-    bar: { name: "Bar, Montenegro", lat: 42.10, lon: 19.09, type: "port" },
+            pula: {
+                name: "Pula, Croatia",
+                lat: 44.87,
+                lon: 13.85,
+                type: "port"
+            },
+            zadar: {
+                name: "Zadar, Croatia",
+                lat: 44.12,
+                lon: 15.23,
+                type: "port"
+            },
+            split: {
+                name: "Split, Croatia",
+                lat: 43.51,
+                lon: 16.44,
+                type: "port"
+            },
+            dubrovnik: {
+                name: "Dubrovnik, Croatia",
+                lat: 42.65,
+                lon: 18.09,
+                type: "port"
+            },
+            tivat: {
+                name: "Tivat, Montenegro",
+                lat: 42.43,
+                lon: 18.70,
+                type: "port"
+            },
+            bar: {
+                name: "Bar, Montenegro",
+                lat: 42.10,
+                lon: 19.09,
+                type: "port"
+            },
 
-    corfu: { name: "Corfu, Greece", lat: 39.62, lon: 19.92, type: "port" },
-    lefkas: { name: "Lefkas, Greece", lat: 38.83, lon: 20.71, type: "port" },
-    patras: { name: "Patras, Greece", lat: 38.25, lon: 21.73, type: "port" },
-    athens: { name: "Athens / Piraeus, Greece", lat: 37.94, lon: 23.64, type: "port" },
-    lavrion: { name: "Lavrion, Greece", lat: 37.71, lon: 24.06, type: "port" },
-    mykonos: { name: "Mykonos, Greece", lat: 37.45, lon: 25.33, type: "port" },
-    kos: { name: "Kos, Greece", lat: 36.89, lon: 27.29, type: "port" },
-    rhodes: { name: "Rhodes, Greece", lat: 36.45, lon: 28.22, type: "port" },
-    heraklion: { name: "Heraklion, Crete, Greece", lat: 35.34, lon: 25.14, type: "port" },
+            corfu: {
+                name: "Corfu, Greece",
+                lat: 39.62,
+                lon: 19.92,
+                type: "port"
+            },
+            lefkas: {
+                name: "Lefkas, Greece",
+                lat: 38.83,
+                lon: 20.71,
+                type: "port"
+            },
+            patras: {
+                name: "Patras, Greece",
+                lat: 38.25,
+                lon: 21.73,
+                type: "port"
+            },
+            athens: {
+                name: "Athens / Piraeus, Greece",
+                lat: 37.94,
+                lon: 23.64,
+                type: "port"
+            },
+            lavrion: {
+                name: "Lavrion, Greece",
+                lat: 37.71,
+                lon: 24.06,
+                type: "port"
+            },
+            mykonos: {
+                name: "Mykonos, Greece",
+                lat: 37.45,
+                lon: 25.33,
+                type: "port"
+            },
+            kos: {name: "Kos, Greece", lat: 36.89, lon: 27.29, type: "port"},
+            rhodes: {
+                name: "Rhodes, Greece",
+                lat: 36.45,
+                lon: 28.22,
+                type: "port"
+            },
+            heraklion: {
+                name: "Heraklion, Crete, Greece",
+                lat: 35.34,
+                lon: 25.14,
+                type: "port"
+            },
 
-    istanbul: { name: "Istanbul, Turkey", lat: 41.02, lon: 28.98, type: "port" },
-    canakkale: { name: "Çanakkale, Turkey", lat: 40.15, lon: 26.41, type: "port" },
-    kusadasi: { name: "Kuşadası, Turkey", lat: 37.86, lon: 27.26, type: "port" },
-    bodrum: { name: "Bodrum, Turkey", lat: 37.03, lon: 27.43, type: "port" },
-    marmaris: { name: "Marmaris, Turkey", lat: 36.85, lon: 28.27, type: "port" },
-    gocek: { name: "Göcek, Turkey", lat: 36.75, lon: 28.94, type: "port" },
-    fethiye: { name: "Fethiye, Turkey", lat: 36.62, lon: 29.11, type: "port" },
-    antalya: { name: "Antalya, Turkey", lat: 36.88, lon: 30.70, type: "port" },
-    limassol: { name: "Limassol, Cyprus", lat: 34.67, lon: 33.04, type: "port" },
+            istanbul: {
+                name: "Istanbul, Turkey",
+                lat: 41.02,
+                lon: 28.98,
+                type: "port"
+            },
+            canakkale: {
+                name: "Çanakkale, Turkey",
+                lat: 40.15,
+                lon: 26.41,
+                type: "port"
+            },
+            kusadasi: {
+                name: "Kuşadası, Turkey",
+                lat: 37.86,
+                lon: 27.26,
+                type: "port"
+            },
+            bodrum: {
+                name: "Bodrum, Turkey",
+                lat: 37.03,
+                lon: 27.43,
+                type: "port"
+            },
+            marmaris: {
+                name: "Marmaris, Turkey",
+                lat: 36.85,
+                lon: 28.27,
+                type: "port"
+            },
+            gocek: {
+                name: "Göcek, Turkey",
+                lat: 36.75,
+                lon: 28.94,
+                type: "port"
+            },
+            fethiye: {
+                name: "Fethiye, Turkey",
+                lat: 36.62,
+                lon: 29.11,
+                type: "port"
+            },
+            antalya: {
+                name: "Antalya, Turkey",
+                lat: 36.88,
+                lon: 30.70,
+                type: "port"
+            },
+            limassol: {
+                name: "Limassol, Cyprus",
+                lat: 34.67,
+                lon: 33.04,
+                type: "port"
+            },
 
-    tangier: { name: "Tangier, Morocco", lat: 35.78, lon: -5.81, type: "port" },
-    ceuta: { name: "Ceuta, Spain", lat: 35.89, lon: -5.32, type: "port" }
-  };
-    var edges = [
-    ["porto", "lisbon", 1.08], ["lisbon", "lagos", 1.08], ["lagos", "huelva", 1.08],
-    ["huelva", "cadiz", 1.08], ["cadiz", "gibraltar", 1.08], ["gibraltar", "ceuta", 1.05],
-    ["gibraltar", "tangier", 1.05], ["ceuta", "tangier", 1.05],
+            tangier: {
+                name: "Tangier, Morocco",
+                lat: 35.78,
+                lon: -5.81,
+                type: "port"
+            },
+            ceuta: {name: "Ceuta, Spain", lat: 35.89, lon: -5.32, type: "port"}
+        };
+        var edges = [
+            ["porto", "lisbon", 1.08], ["lisbon", "lagos", 1.08], ["lagos", "huelva", 1.08],
+            ["huelva", "cadiz", 1.08], ["cadiz", "gibraltar", 1.08], ["gibraltar", "ceuta", 1.05],
+            ["gibraltar", "tangier", 1.05], ["ceuta", "tangier", 1.05],
 
-    ["gibraltar", "malaga", 1.10], ["malaga", "almeria", 1.12], ["almeria", "cartagena", 1.12],
-    ["cartagena", "alicante", 1.10], ["alicante", "altea", 1.05], ["altea", "denia", 1.05],
-    ["denia", "valencia", 1.08], ["valencia", "castellon", 1.08], ["castellon", "tarragona", 1.08],
-    ["tarragona", "barcelona", 1.08],
+            ["gibraltar", "malaga", 1.10], ["malaga", "almeria", 1.12], ["almeria", "cartagena", 1.12],
+            ["cartagena", "alicante", 1.10], ["alicante", "altea", 1.05], ["altea", "denia", 1.05],
+            ["denia", "valencia", 1.08], ["valencia", "castellon", 1.08], ["castellon", "tarragona", 1.08],
+            ["tarragona", "barcelona", 1.08],
 
-    ["denia", "ibiza", 1.05], ["altea", "ibiza", 1.05], ["valencia", "ibiza", 1.05],
-    ["valencia", "palma", 1.05], ["barcelona", "palma", 1.05], ["barcelona", "mahon", 1.05],
-    ["ibiza", "palma", 1.05], ["palma", "alcudia", 1.05], ["alcudia", "mahon", 1.05],
-    ["palma", "mahon", 1.05],
+            ["denia", "ibiza", 1.05], ["altea", "ibiza", 1.05], ["valencia", "ibiza", 1.05],
+            ["valencia", "palma", 1.05], ["barcelona", "palma", 1.05], ["barcelona", "mahon", 1.05],
+            ["ibiza", "palma", 1.05], ["palma", "alcudia", 1.05], ["alcudia", "mahon", 1.05],
+            ["palma", "mahon", 1.05],
 
-    ["barcelona", "portvendres", 1.08], ["portvendres", "marseille", 1.10],
-    ["mahon", "marseille", 1.08], ["mahon", "toulon", 1.08],
+            ["barcelona", "portvendres", 1.08], ["portvendres", "marseille", 1.10],
+            ["mahon", "marseille", 1.08], ["mahon", "toulon", 1.08],
 
-    ["marseille", "toulon", 1.08], ["toulon", "sainttropez", 1.08],
-    ["sainttropez", "cannes", 1.08], ["cannes", "nice", 1.05], ["nice", "monaco", 1.03],
-    ["monaco", "genoa", 1.08],
+            ["marseille", "toulon", 1.08], ["toulon", "sainttropez", 1.08],
+            ["sainttropez", "cannes", 1.08], ["cannes", "nice", 1.05], ["nice", "monaco", 1.03],
+            ["monaco", "genoa", 1.08],
 
-    ["mahon", "bonifacio", 1.08], ["marseille", "ajaccio", 1.08],
-    ["toulon", "ajaccio", 1.08], ["nice", "bastia", 1.08], ["ajaccio", "bonifacio", 1.08],
-    ["ajaccio", "bastia", 1.08], ["bastia", "genoa", 1.08], ["bastia", "livorno", 1.08],
-    ["bonifacio", "olbia", 1.05], ["olbia", "cagliari", 1.10], ["mahon", "cagliari", 1.08],
-    ["palma", "cagliari", 1.08],
+            ["mahon", "bonifacio", 1.08], ["marseille", "ajaccio", 1.08],
+            ["toulon", "ajaccio", 1.08], ["nice", "bastia", 1.08], ["ajaccio", "bonifacio", 1.08],
+            ["ajaccio", "bastia", 1.08], ["bastia", "genoa", 1.08], ["bastia", "livorno", 1.08],
+            ["bonifacio", "olbia", 1.05], ["olbia", "cagliari", 1.10], ["mahon", "cagliari", 1.08],
+            ["palma", "cagliari", 1.08],
 
-    ["genoa", "laspezia", 1.10], ["laspezia", "livorno", 1.08],
-    ["livorno", "civitavecchia", 1.12], ["civitavecchia", "ponza", 1.05],
-    ["ponza", "naples", 1.05], ["naples", "salerno", 1.05], ["salerno", "messina", 1.12],
-    ["civitavecchia", "olbia", 1.08], ["naples", "palermo", 1.08],
-    ["cagliari", "trapani", 1.08], ["cagliari", "palermo", 1.08],
+            ["genoa", "laspezia", 1.10], ["laspezia", "livorno", 1.08],
+            ["livorno", "civitavecchia", 1.12], ["civitavecchia", "ponza", 1.05],
+            ["ponza", "naples", 1.05], ["naples", "salerno", 1.05], ["salerno", "messina", 1.12],
+            ["civitavecchia", "olbia", 1.08], ["naples", "palermo", 1.08],
+            ["cagliari", "trapani", 1.08], ["cagliari", "palermo", 1.08],
 
-    ["trapani", "palermo", 1.08], ["palermo", "messina", 1.10], ["messina", "catania", 1.08],
-    ["catania", "valletta", 1.08], ["palermo", "valletta", 1.08], ["valletta", "cagliari", 1.08],
+            ["trapani", "palermo", 1.08], ["palermo", "messina", 1.10], ["messina", "catania", 1.08],
+            ["catania", "valletta", 1.08], ["palermo", "valletta", 1.08], ["valletta", "cagliari", 1.08],
 
-    ["messina", "brindisi", 1.10], ["valletta", "brindisi", 1.10],
-    ["brindisi", "bari", 1.08], ["bari", "ancona", 1.10], ["ancona", "venice", 1.10],
-    ["venice", "trieste", 1.08],
+            ["messina", "brindisi", 1.10], ["valletta", "brindisi", 1.10],
+            ["brindisi", "bari", 1.08], ["bari", "ancona", 1.10], ["ancona", "venice", 1.10],
+            ["venice", "trieste", 1.08],
 
-    ["trieste", "pula", 1.08], ["pula", "zadar", 1.10], ["zadar", "split", 1.08],
-    ["split", "dubrovnik", 1.08], ["dubrovnik", "tivat", 1.05], ["tivat", "bar", 1.05],
-    ["bar", "corfu", 1.12], ["brindisi", "corfu", 1.08], ["bari", "dubrovnik", 1.10],
-    ["ancona", "split", 1.10],
+            ["trieste", "pula", 1.08], ["pula", "zadar", 1.10], ["zadar", "split", 1.08],
+            ["split", "dubrovnik", 1.08], ["dubrovnik", "tivat", 1.05], ["tivat", "bar", 1.05],
+            ["bar", "corfu", 1.12], ["brindisi", "corfu", 1.08], ["bari", "dubrovnik", 1.10],
+            ["ancona", "split", 1.10],
 
-    ["corfu", "lefkas", 1.08], ["lefkas", "patras", 1.08], ["patras", "athens", 1.12],
-    ["athens", "lavrion", 1.05], ["lavrion", "mykonos", 1.05], ["athens", "mykonos", 1.08],
-    ["mykonos", "kos", 1.08], ["kos", "rhodes", 1.08], ["athens", "heraklion", 1.08],
-    ["heraklion", "rhodes", 1.08], ["valletta", "corfu", 1.12], ["brindisi", "patras", 1.08],
+            ["corfu", "lefkas", 1.08], ["lefkas", "patras", 1.08], ["patras", "athens", 1.12],
+            ["athens", "lavrion", 1.05], ["lavrion", "mykonos", 1.05], ["athens", "mykonos", 1.08],
+            ["mykonos", "kos", 1.08], ["kos", "rhodes", 1.08], ["athens", "heraklion", 1.08],
+            ["heraklion", "rhodes", 1.08], ["valletta", "corfu", 1.12], ["brindisi", "patras", 1.08],
 
-    ["rhodes", "marmaris", 1.05], ["kos", "bodrum", 1.05], ["bodrum", "marmaris", 1.08],
-    ["marmaris", "gocek", 1.08], ["gocek", "fethiye", 1.03], ["fethiye", "antalya", 1.10],
-    ["kusadasi", "bodrum", 1.08], ["canakkale", "kusadasi", 1.12],
-    ["istanbul", "canakkale", 1.12], ["mykonos", "canakkale", 1.12],
+            ["rhodes", "marmaris", 1.05], ["kos", "bodrum", 1.05], ["bodrum", "marmaris", 1.08],
+            ["marmaris", "gocek", 1.08], ["gocek", "fethiye", 1.03], ["fethiye", "antalya", 1.10],
+            ["kusadasi", "bodrum", 1.08], ["canakkale", "kusadasi", 1.12],
+            ["istanbul", "canakkale", 1.12], ["mykonos", "canakkale", 1.12],
 
-    ["rhodes", "limassol", 1.12], ["antalya", "limassol", 1.08], ["heraklion", "limassol", 1.12]
-  ];
+            ["rhodes", "limassol", 1.12], ["antalya", "limassol", 1.08], ["heraklion", "limassol", 1.12]
+        ];
 
-    function normalise(text) {
-      return String(text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
-    }
-    function toRadians(degrees) { return degrees * Math.PI / 180; }
-    function nauticalMiles(a, b) {
-      var earthRadiusNm = 3440.065;
-      var lat1 = toRadians(a.lat), lon1 = toRadians(a.lon), lat2 = toRadians(b.lat), lon2 = toRadians(b.lon);
-      var dLat = lat2 - lat1, dLon = lon2 - lon1;
-      var x = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLon/2)*Math.sin(dLon/2);
-      return earthRadiusNm * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
-    }
-    function buildGraph() {
-      var graph = {};
-      Object.keys(nodes).forEach(function(key) { graph[key] = []; });
-      edges.forEach(function(edge) {
-        var from = edge[0], to = edge[1], factor = edge[2] || 1.08;
-        if (!nodes[from] || !nodes[to]) return;
-        var distance = nauticalMiles(nodes[from], nodes[to]) * factor;
-        graph[from].push({ node: to, distance: distance });
-        graph[to].push({ node: from, distance: distance });
-      });
-      return graph;
-    }
-    var graph = buildGraph();
-    function findPortKey(inputValue) {
-      var search = normalise(inputValue);
-      if (!search) return null;
-      var portKeys = Object.keys(nodes).filter(function(key) { return nodes[key].type === "port"; });
-      for (var i=0; i<portKeys.length; i++) { var key = portKeys[i]; if (normalise(nodes[key].name) === search) return key; }
-      for (var j=0; j<portKeys.length; j++) { var key2 = portKeys[j]; if (normalise(nodes[key2].name).indexOf(search) !== -1) return key2; }
-      return null;
-    }
-    function shortestSeaRoute(startKey, endKey) {
-      var distances = {}, previous = {}, visited = {}, keys = Object.keys(nodes);
-      keys.forEach(function(key) { distances[key] = Infinity; previous[key] = null; });
-      distances[startKey] = 0;
-      while (true) {
-        var current = null, currentDistance = Infinity;
-        keys.forEach(function(key) { if (!visited[key] && distances[key] < currentDistance) { current = key; currentDistance = distances[key]; } });
-        if (current === null || current === endKey) break;
-        visited[current] = true;
-        graph[current].forEach(function(edge) {
-          var newDistance = distances[current] + edge.distance;
-          if (newDistance < distances[edge.node]) { distances[edge.node] = newDistance; previous[edge.node] = current; }
-        });
-      }
-      if (!isFinite(distances[endKey])) return null;
-      var path = [], step = endKey;
-      while (step) { path.unshift(step); step = previous[step]; }
-      return { distance: distances[endKey], path: path };
-    }
-    function routeText(path) {
-      var names = path.map(function(key) { return nodes[key].name.replace(" sea waypoint, Italy", ""); });
-      if (names.length <= 10) return names.join(" → ");
-      return names.slice(0,5).join(" → ") + " → ... → " + names.slice(names.length-5).join(" → ");
-    }
-    function fillPortList() {
-      var datalist = document.getElementById("pys-port-list");
-      var portKeys = Object.keys(nodes).filter(function(key) { return nodes[key].type === "port"; }).sort(function(a,b) { return nodes[a].name.localeCompare(nodes[b].name); });
-      portKeys.forEach(function(key) { var option = document.createElement("option"); option.value = nodes[key].name; datalist.appendChild(option); });
-    }
-    function showResult() { document.getElementById("pys-form-view").style.display = "none"; document.getElementById("pys-result-view").style.display = "block"; window.scrollTo({top:0, behavior:"smooth"}); }
-    function showForm() { document.getElementById("pys-result-view").style.display = "none"; document.getElementById("pys-form-view").style.display = "block"; window.scrollTo({top:0, behavior:"smooth"}); }
-    function resetCalculator() {
-      document.getElementById("pys-start").value = ""; document.getElementById("pys-end").value = ""; document.getElementById("pys-type").value = "sailing"; document.getElementById("pys-length").value = "small"; document.getElementById("pys-complexity").value = "standard"; document.getElementById("pys-urgency").value = "standard"; showForm();
-    }
-    function calculateDelivery() {
-      var startInput = document.getElementById("pys-start").value, endInput = document.getElementById("pys-end").value, type = document.getElementById("pys-type").value, length = document.getElementById("pys-length").value, complexity = document.getElementById("pys-complexity").value, urgency = document.getElementById("pys-urgency").value;
-      var startKey = findPortKey(startInput), endKey = findPortKey(endInput);
-      if (!startKey || !endKey) { alert("Please select valid start and end points from the list."); return; }
-      if (startKey === endKey) { alert("Start point and end point cannot be the same."); return; }
-      var route = shortestSeaRoute(startKey, endKey);
-      if (!route) { alert("No sea route was found for this combination. Please contact us for a custom quote."); return; }
-      var distance = Math.round(route.distance), baseFee = 350, minimumFee = 900, rate = 0;
-      if (type === "sailing" && length === "small") rate = 4.0;
-      if (type === "sailing" && length === "medium") rate = 5.0;
-      if (type === "sailing" && length === "large") rate = 6.5;
-      if (type === "sailing" && length === "xlarge") rate = 8.0;
-      if (type === "motor" && length === "small") rate = 5.0;
-      if (type === "motor" && length === "medium") rate = 6.5;
-      if (type === "motor" && length === "large") rate = 8.0;
-      if (type === "motor" && length === "xlarge") rate = 10.0;
-      var complexityMultiplier = complexity === "offshore" ? 1.15 : (complexity === "complex" ? 1.25 : 1.0);
-      var urgencyMultiplier = urgency === "urgent" ? 1.20 : 1.0;
-      var estimate = baseFee + (distance * rate * complexityMultiplier * urgencyMultiplier);
-      estimate = Math.max(estimate, minimumFee);
-      estimate = Math.round(estimate / 50) * 50;
-      document.getElementById("pys-distance").innerHTML = distance.toLocaleString("en-GB") + " " + "nautical miles";
-      document.getElementById("pys-price").innerHTML = "€" + estimate.toLocaleString("en-GB");
-      document.getElementById("pys-route").innerHTML = "<strong style='color:#06417c;'>" + "Approximate marine corridor:" + "</strong><br>" + routeText(route.path);
-      showResult();
-    }
-    fillPortList();
-    document.getElementById("pys-calculate").addEventListener("click", calculateDelivery);
-    document.getElementById("pys-new-route").addEventListener("click", resetCalculator);
-  })();
-  </script>
+        function normalise(text) {
+            return String(text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+        }
+
+        function toRadians(degrees) {
+            return degrees * Math.PI / 180;
+        }
+
+        function nauticalMiles(a, b) {
+            var earthRadiusNm = 3440.065;
+            var lat1 = toRadians(a.lat), lon1 = toRadians(a.lon),
+                lat2 = toRadians(b.lat), lon2 = toRadians(b.lon);
+            var dLat = lat2 - lat1, dLon = lon2 - lon1;
+            var x = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            return earthRadiusNm * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+        }
+
+        function buildGraph() {
+            var graph = {};
+            Object.keys(nodes).forEach(function (key) {
+                graph[key] = [];
+            });
+            edges.forEach(function (edge) {
+                var from = edge[0], to = edge[1], factor = edge[2] || 1.08;
+                if (!nodes[from] || !nodes[to]) return;
+                var distance = nauticalMiles(nodes[from], nodes[to]) * factor;
+                graph[from].push({node: to, distance: distance});
+                graph[to].push({node: from, distance: distance});
+            });
+            return graph;
+        }
+
+        var graph = buildGraph();
+
+        function findPortKey(inputValue) {
+            var search = normalise(inputValue);
+            if (!search) return null;
+            var portKeys = Object.keys(nodes).filter(function (key) {
+                return nodes[key].type === "port";
+            });
+            for (var i = 0; i < portKeys.length; i++) {
+                var key = portKeys[i];
+                if (normalise(nodes[key].name) === search) return key;
+            }
+            for (var j = 0; j < portKeys.length; j++) {
+                var key2 = portKeys[j];
+                if (normalise(nodes[key2].name).indexOf(search) !== -1) return key2;
+            }
+            return null;
+        }
+
+        function shortestSeaRoute(startKey, endKey) {
+            var distances = {}, previous = {}, visited = {},
+                keys = Object.keys(nodes);
+            keys.forEach(function (key) {
+                distances[key] = Infinity;
+                previous[key] = null;
+            });
+            distances[startKey] = 0;
+            while (true) {
+                var current = null, currentDistance = Infinity;
+                keys.forEach(function (key) {
+                    if (!visited[key] && distances[key] < currentDistance) {
+                        current = key;
+                        currentDistance = distances[key];
+                    }
+                });
+                if (current === null || current === endKey) break;
+                visited[current] = true;
+                graph[current].forEach(function (edge) {
+                    var newDistance = distances[current] + edge.distance;
+                    if (newDistance < distances[edge.node]) {
+                        distances[edge.node] = newDistance;
+                        previous[edge.node] = current;
+                    }
+                });
+            }
+            if (!isFinite(distances[endKey])) return null;
+            var path = [], step = endKey;
+            while (step) {
+                path.unshift(step);
+                step = previous[step];
+            }
+            return {distance: distances[endKey], path: path};
+        }
+
+        function routeText(path) {
+            var names = path.map(function (key) {
+                return nodes[key].name.replace(" sea waypoint, Italy", "");
+            });
+            if (names.length <= 10) return names.join(" → ");
+            return names.slice(0, 5).join(" → ") + " → ... → " + names.slice(names.length - 5).join(" → ");
+        }
+
+        function getPortKeys() {
+            return Object.keys(nodes)
+                .filter(function (key) {
+                    return nodes[key].type === "port";
+                })
+                .sort(function (a, b) {
+                    return nodes[a].name.localeCompare(nodes[b].name);
+                });
+        }
+
+        function setupPortDropdown(inputId, listId) {
+            var input = document.getElementById(inputId);
+            var list = document.getElementById(listId);
+            var portKeys = getPortKeys();
+            var activeIndex = -1;
+
+            function closeList() {
+                list.classList.remove("pys-open");
+                input.setAttribute("aria-expanded", "false");
+                activeIndex = -1;
+            }
+
+            function openList() {
+                list.classList.add("pys-open");
+                input.setAttribute("aria-expanded", "true");
+            }
+
+            function renderOptions() {
+                var query = normalise(input.value);
+                var matches = portKeys.filter(function (key) {
+                    return normalise(nodes[key].name).indexOf(query) !== -1;
+                });
+
+                list.innerHTML = "";
+
+                if (!query) {
+                    var hint = document.createElement("div");
+                    hint.className = "pys-combo-empty";
+                    hint.textContent = "Start typing to filter ports";
+                    list.appendChild(hint);
+                }
+
+                if (matches.length === 0) {
+                    var empty = document.createElement("div");
+                    empty.className = "pys-combo-empty";
+                    empty.textContent = "No ports found";
+                    list.appendChild(empty);
+                    openList();
+                    return;
+                }
+
+                matches.forEach(function (key, index) {
+                    var option = document.createElement("button");
+                    option.type = "button";
+                    option.className = "pys-combo-option";
+                    option.setAttribute("role", "option");
+                    option.textContent = nodes[key].name;
+                    option.addEventListener("click", function () {
+                        input.value = nodes[key].name;
+                        closeList();
+                    });
+                    option.addEventListener("mouseenter", function () {
+                        activeIndex = index;
+                        updateActiveOption();
+                    });
+                    list.appendChild(option);
+                });
+
+                openList();
+            }
+
+            function updateActiveOption() {
+                var options = list.querySelectorAll(".pys-combo-option");
+                options.forEach(function (option, index) {
+                    option.classList.toggle("pys-active", index === activeIndex);
+                });
+            }
+
+            input.addEventListener("focus", renderOptions);
+            input.addEventListener("input", renderOptions);
+
+            input.addEventListener("keydown", function (event) {
+                var options = list.querySelectorAll(".pys-combo-option");
+
+                if (event.key === "ArrowDown") {
+                    event.preventDefault();
+                    if (!list.classList.contains("pys-open")) renderOptions();
+                    activeIndex = Math.min(activeIndex + 1, options.length - 1);
+                    updateActiveOption();
+                    if (options[activeIndex]) options[activeIndex].scrollIntoView({block: "nearest"});
+                }
+
+                if (event.key === "ArrowUp") {
+                    event.preventDefault();
+                    activeIndex = Math.max(activeIndex - 1, 0);
+                    updateActiveOption();
+                    if (options[activeIndex]) options[activeIndex].scrollIntoView({block: "nearest"});
+                }
+
+                if (event.key === "Enter" && activeIndex >= 0 && options[activeIndex]) {
+                    event.preventDefault();
+                    input.value = options[activeIndex].textContent;
+                    closeList();
+                }
+
+                if (event.key === "Escape") {
+                    closeList();
+                }
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!input.parentElement.contains(event.target)) {
+                    closeList();
+                }
+            });
+        }
+
+        function setupPortDropdowns() {
+            setupPortDropdown("pys-start", "pys-start-list");
+            setupPortDropdown("pys-end", "pys-end-list");
+        }
+
+        function showResult() {
+            document.getElementById("pys-form-view").style.display = "none";
+            document.getElementById("pys-result-view").style.display = "block";
+            window.scrollTo({top: 0, behavior: "smooth"});
+        }
+
+        function showForm() {
+            document.getElementById("pys-result-view").style.display = "none";
+            document.getElementById("pys-form-view").style.display = "block";
+            window.scrollTo({top: 0, behavior: "smooth"});
+        }
+
+        function resetCalculator() {
+            document.getElementById("pys-start").value = "";
+            document.getElementById("pys-end").value = "";
+            document.getElementById("pys-type").value = "sailing";
+            document.getElementById("pys-length").value = "small";
+            document.getElementById("pys-complexity").value = "standard";
+            document.getElementById("pys-urgency").value = "standard";
+            showForm();
+        }
+
+        function calculateDelivery() {
+            var startInput = document.getElementById("pys-start").value,
+                endInput = document.getElementById("pys-end").value,
+                type = document.getElementById("pys-type").value,
+                length = document.getElementById("pys-length").value,
+                complexity = document.getElementById("pys-complexity").value,
+                urgency = document.getElementById("pys-urgency").value;
+            var startKey = findPortKey(startInput),
+                endKey = findPortKey(endInput);
+            if (!startKey || !endKey) {
+                alert("Please select valid start and end points from the list.");
+                return;
+            }
+            if (startKey === endKey) {
+                alert("Start point and end point cannot be the same.");
+                return;
+            }
+            var route = shortestSeaRoute(startKey, endKey);
+            if (!route) {
+                alert("No sea route was found for this combination. Please contact us for a custom quote.");
+                return;
+            }
+            var distance = Math.round(route.distance), baseFee = 350,
+                minimumFee = 900, rate = 0;
+            if (type === "sailing" && length === "small") rate = 4.0;
+            if (type === "sailing" && length === "medium") rate = 5.0;
+            if (type === "sailing" && length === "large") rate = 6.5;
+            if (type === "sailing" && length === "xlarge") rate = 8.0;
+            if (type === "motor" && length === "small") rate = 5.0;
+            if (type === "motor" && length === "medium") rate = 6.5;
+            if (type === "motor" && length === "large") rate = 8.0;
+            if (type === "motor" && length === "xlarge") rate = 10.0;
+            var complexityMultiplier = complexity === "offshore" ? 1.15 : (complexity === "complex" ? 1.25 : 1.0);
+            var urgencyMultiplier = urgency === "urgent" ? 1.20 : 1.0;
+            var estimate = baseFee + (distance * rate * complexityMultiplier * urgencyMultiplier);
+            estimate = Math.max(estimate, minimumFee);
+            estimate = Math.round(estimate / 50) * 50;
+            document.getElementById("pys-distance").innerHTML = distance.toLocaleString("en-GB") + " " + "nautical miles";
+            document.getElementById("pys-price").innerHTML = "€" + estimate.toLocaleString("en-GB");
+            document.getElementById("pys-route").innerHTML = "<strong style='color:#06417c;'>" + "Approximate marine corridor:" + "</strong><br>" + routeText(route.path);
+            showResult();
+        }
+
+        setupPortDropdowns();
+        document.getElementById("pys-calculate").addEventListener("click", calculateDelivery);
+        document.getElementById("pys-new-route").addEventListener("click", resetCalculator);
+    })();
+</script>
 </body>
 </html>
