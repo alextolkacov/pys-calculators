@@ -1,72 +1,229 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadoras Premium Yachts Spain</title>
-  <meta name="description" content="Calculadoras online de Premium Yachts Spain para configuración del NYX 42C, estimaciones de entrega de yates e inspecciones pre-compra." />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Playfair Display', Georgia, serif; background: #f4f8fb; color: #000; font-size: 14px; }
-    .page { min-height: 100vh; padding: 40px 18px; display: flex; align-items: center; justify-content: center; }
-    .container { width: 100%; max-width: 980px; background: #fff; border: 1px solid #d9e1e8; border-radius: 22px; padding: 34px; box-shadow: 0 8px 28px rgba(0,0,0,.07); position: relative; }
-    .lang-switch { position: absolute; top: 18px; right: 18px; display: flex; gap: 8px; align-items: center; font-size: 13px; }
-    .lang-switch a, .lang-switch span { padding: 7px 10px; border: 1px solid #d9e1e8; border-radius: 999px; text-decoration: none; color: #06417c; font-weight: 600; background: #fff; }
-    .lang-switch span { background: #06417c; color: #fff; border-color: #06417c; }
-    .top { text-align: center; margin: 26px 0 34px; }
-    h1 { margin: 0 0 12px; color: #06417c; font-size: 34px; line-height: 1.2; font-weight: 600; }
-    .subtitle { max-width: 680px; margin: 0 auto; line-height: 1.6; font-size: 15px; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
-    .card { border: 1px solid #d9e1e8; border-radius: 18px; padding: 22px; background: #fff; display: flex; flex-direction: column; min-height: 230px; }
-    .card h2 { margin: 0 0 10px; color: #06417c; font-size: 22px; line-height: 1.25; font-weight: 600; }
-    .card p { margin: 0 0 18px; line-height: 1.55; flex: 1; }
-    .button { display: block; width: 100%; text-align: center; padding: 13px 16px; background: #06417c; color: #fff; text-decoration: none; border-radius: 10px; font-weight: 600; }
-    .secondary { margin-top: 28px; text-align: center; }
-    .secondary a { color: #06417c; text-decoration: none; font-weight: 600; }
-    .note { margin-top: 24px; padding: 14px; border: 1px solid #d9e1e8; border-radius: 14px; background: #f4f8fb; line-height: 1.55; text-align: center; }
-    @media (max-width: 820px) {
-      .container { padding: 24px; }
-      .lang-switch { position: static; justify-content: center; margin-bottom: 16px; }
-      .top { margin-top: 0; }
-      h1 { font-size: 28px; }
-      .cards { grid-template-columns: 1fr; }
-      .card { min-height: auto; }
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Calculadoras Premium Yachts Spain</title>
+    <meta name="description"
+          content="Calculadoras online de Premium Yachts Spain para configuración del NYX 42C, estimaciones de entrega de yates e inspecciones pre-compra."/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Playfair Display', Georgia, serif;
+            background: #f4f8fb;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 40px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+            background: #fff;
+            border: 1px solid #d9e1e8;
+            border-radius: 22px;
+            padding: 34px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .07);
+            position: relative;
+        }
+
+        .lang-switch {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .lang-switch a, .lang-switch span {
+            padding: 7px 10px;
+            border: 1px solid #d9e1e8;
+            border-radius: 999px;
+            text-decoration: none;
+            color: #06417c;
+            font-weight: 600;
+            background: #fff;
+        }
+
+        .lang-switch span {
+            background: #06417c;
+            color: #fff;
+            border-color: #06417c;
+        }
+
+        .top {
+            text-align: center;
+            margin: 26px 0 34px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            color: #06417c;
+            font-size: 34px;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 28px;
+        }
+
+        .card {
+            border: 1px solid #d9e1e8;
+            border-radius: 18px;
+            padding: 22px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 230px;
+        }
+
+        .card h2 {
+            margin: 0 0 10px;
+            color: #06417c;
+            font-size: 22px;
+            line-height: 1.25;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin: 0 0 18px;
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 13px 16px;
+            background: #06417c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .secondary {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .secondary a {
+            color: #06417c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .note {
+            margin-top: 24px;
+            padding: 14px;
+            border: 1px solid #d9e1e8;
+            border-radius: 14px;
+            background: #f4f8fb;
+            line-height: 1.55;
+            text-align: center;
+        }
+
+        @media (max-width: 820px) {
+            .container {
+                padding: 24px;
+            }
+
+            .lang-switch {
+                position: static;
+                justify-content: center;
+                margin-bottom: 16px;
+            }
+
+            .top {
+                margin-top: 0;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                min-height: auto;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main class="page">
+<main class="page">
     <section class="container">
-      <div class="lang-switch"><a href="/">EN</a><span>ES</span></div>
-      <div class="top">
-        <h1>Calculadoras Premium Yachts Spain</h1>
-        <p class="subtitle">Utilice nuestras herramientas online para estimar la configuración de un yate, los costes de entrega y las tarifas de inspección pre-compra. Todos los cálculos son orientativos y sujetos a confirmación final.</p>
-      </div>
-      <div class="cards">
-        <div class="card">
-          <h2>Configurador de precio NYX 42C</h2>
-          <p>Configure el NYX 42C con opciones seleccionadas y descargue una estimación indicativa en PDF.</p>
-          <a class="button" href="/es/nyx-42c/">Abrir configurador</a>
+        <div class="lang-switch"><a href="/">EN</a><span>ES</span></div>
+        <div class="top">
+            <h1>Calculadoras Premium Yachts Spain</h1>
+            <p class="subtitle">Utilice nuestras herramientas online para
+                estimar la configuración de un yate, los costes de entrega y
+                las tarifas de inspección pre-compra. Todos los cálculos son
+                orientativos y sujetos a confirmación final.</p>
         </div>
+        <div class="cards">
+            <div class="card">
+                <h2>Configurador de precio NYX 42C</h2>
+                <p>Configure el NYX 42C con opciones seleccionadas y descargue
+                    una estimación indicativa en PDF.</p>
+                <a class="button" href="/es/nyx-42c/">Abrir configurador</a>
+            </div>
 
-        <div class="card">
-          <h2>Estimación de entrega de yates</h2>
-          <p>Calcule una distancia aproximada por ruta marítima y un precio inicial de entrega.</p>
-          <a class="button" href="/es/yacht-delivery/">Abrir calculadora</a>
-        </div>
+            <div class="card">
+                <h2>Estimación de entrega de yates</h2>
+                <p>Calcule una distancia aproximada por ruta marítima y un
+                    precio inicial de entrega.</p>
+                <a class="button" href="/es/yacht-delivery/">Abrir
+                    calculadora</a>
+            </div>
 
-        <div class="card">
-          <h2>Estimación de inspección pre-compra</h2>
-          <p>Estime una tarifa profesional de inspección pre-compra según la eslora y el alcance de la inspección.</p>
-          <a class="button" href="/es/survey/">Abrir calculadora</a>
+            <div class="card">
+                <h2>Estimación de inspección pre-compra</h2>
+                <p>Estime una tarifa profesional de inspección pre-compra según
+                    la eslora y el alcance de la inspección.</p>
+                <a class="button" href="/es/survey/">Abrir calculadora</a>
+            </div>
         </div>
-      </div>
-      <div class="note">Estas calculadoras proporcionan estimaciones orientativas. Los precios finales dependen de la especificación del yate, ubicación, disponibilidad, condiciones de entrega, alcance de inspección, impuestos y confirmación por escrito.</div>
-      <div class="secondary">
-        <a href="https://www.premiumyachts.es" target="_blank">Volver a Premium Yachts Spain</a>
-      </div>
+        <div class="note">Estas calculadoras proporcionan estimaciones
+            orientativas. Los precios finales dependen de la especificación del
+            yate, ubicación, disponibilidad, condiciones de entrega, alcance de
+            inspección, impuestos y confirmación por escrito.
+        </div>
+        <div class="secondary">
+            <a href="https://www.premiumyachts.es" target="_blank">Volver a
+                Premium Yachts Spain</a>
+        </div>
     </section>
-  </main>
+</main>
 </body>
 </html>
